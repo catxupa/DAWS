@@ -1,0 +1,32 @@
+Table table_utilizadores [headercolor: #175e7a] {
+	id varchar(255) [ pk, not null, unique ]
+	nome varchar(50) [ not null ]
+	numero_identificacao varchar(100) [ not null ]
+	data_nascimento date [ not null ]
+	email varchar(100) [ not null ]
+	telefone varchar(13)
+	pais varchar(100) [ not null ]
+	localidade varchar(100) [ not null ]
+	enabled boolean [ not null ]
+	created_at datetime [ not null ]
+	update_at datetime [ not null ]
+
+	indexes {
+		() [ name: 'table_prestadores_index_0' ]
+		() [ name: 'table_utilizadores_index_1' ]
+		() [ name: 'table_utilizadores_index_2' ]
+	}
+}
+
+Table tabela_prestadores [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	"taxa_..." decimal(10,3)
+	percentagem decimal(10,3)
+	"minim..." decimal(10,3)
+	nif numeric [ not null ]
+	profissao varchar(100) [ not null ]
+	enable boolean [ not null ]
+	created_at datetime [ not null ]
+	updated_at datetime [ not null ]
+}
+

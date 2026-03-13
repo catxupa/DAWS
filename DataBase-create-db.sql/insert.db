@@ -1,0 +1,110 @@
+INSERT INTO tabela_utilizadores(
+id,
+nome,
+numero_identificacao,
+data_nascimento,
+email,
+telefone,
+pais,
+localidade,
+`passord`,
+enabled,
+created_at,
+updated_at
+)values(
+"34c85c60-27b3-4feb-9f7a-02e4be4eceee",
+"Bruno Monteiro",
+"M001R",
+"2002-08-15",
+"4lf4s4ntos@gmail.com",
+"5837951",
+"Cabo Verde",
+"Vila Nova",
+"$2a$12$zXkjzQRnwyF2AKa9zMuCV.MUjYYI6Ac7Wx.rCednlCuzZ57H.wXz2",
+true,
+now(),
+now()
+);
+
+INSERT INTO tabela_orcamento
+VALUES(
+NULL,
+200,
+"34c85c60-27b3-4feb-9f7a-02e4be4eceee",
+"34c85c60-27b3-4feb-9f7a-02e4be4eceee",
+TRUE,
+now(),
+now()
+)
+
+ALTER TABLE tabela_orcamento
+DROP COLUMN utilizadores
+
+INSERT INTO tabela_servicos(
+id,
+nome,
+descricao,
+categoria,
+enabled,
+created_at,
+updated_at
+)VALUE(
+NULL,
+"Desenvolvimento Front-End",
+"criacao de sites",
+"Desenvolvedor_softw",
+True,
+now(),
+now()
+);
+
+INSERT INTO tabela_prestadores
+VALUES(
+"bc06af2b-279f-4b7d-a593-4b808f46311a",
+"Luis Santos",
+"Engenheiro",
+"1.3",
+"0.3",
+"0.5",
+"0.6",
+TRUE,
+TRUE,
+now(),
+now()
+);
+
+INSERT INTO tabela_prestadores
+VALUES(
+"e3b30ee0-6251-4be7-8c2c-38a66d765698",
+"Luis Santos",
+"Engenheiro",
+"1.3",
+"0.6",
+"1234567",
+"0.3",
+"0.4",
+"0.7",
+TRUE,
+now(),
+now()
+);
+
+INSERT INTO tabela_utilizadores
+VALUES(
+"8c7a484d-52ae-45ce-918c-c4db5ab70e73",
+"Patrick Andrade",
+"M002K",
+"2004-06-20",
+"santos@gmail.com",
+"9837951",
+"Cabo Verde",
+"Palmarejo",
+"$2a$10$GfECjC1Dh9ZW.Oo3CyTtX.yHzJ4mFVVf8LNsk92Or6GmGVA8BArVu",
+TRUE,
+now(),
+now()
+);
+
+
+
+

@@ -1,9 +1,9 @@
-import { response } from "express";
+
 import type { responseType, Servicotype } from "./util/types.js";
 
 export let catalogoServico: Servicotype[] = [
     {
-        nome: "Serviço de limpeza",
+        nome: "Luis",
         precoHora: 50,
         minimiDesconto: 3,
         percentagemDesconto: 10,
@@ -60,9 +60,10 @@ export function apagarServico(nome: string): boolean {
     const novocatalogtempprario: Servicotype[] = []
     for (let i = 0; i < catalogoServico.length; i++) {
         if (catalogoServico[i]?.nome !== undefined && catalogoServico[i]?.nome !== nome) {
+
             novocatalogtempprario.push(catalogoServico[i]!)
         }
-    } // Densemvolver um novo catalogo sem o serviço a ser apagado
+    } // Densemvolver um novo catalogo sem o serviço ser apagado
     catalogoServico = novocatalogtempprario
     return true
 }
@@ -77,3 +78,6 @@ export function obterServico(nome: string): Servicotype | null {
     }
     return null
 }
+
+
+
