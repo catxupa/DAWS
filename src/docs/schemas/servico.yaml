@@ -1,0 +1,75 @@
+
+#--schema/servico.yaml--#
+
+# id: string,
+# nome: string,
+# descricao: string,
+# categoria: string,
+# enabled: boolean,
+# created_at: string,
+# updated_at: string
+
+
+components:
+    schemas:
+    #schema principal para buscar servico
+    Servico:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1
+        nome:
+          type: string
+          example: Eletricista
+        descricao:
+          type: string
+          example: Reparação de curto-circuito
+        categoria:
+          type: string
+          example: Eletricidade
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          example: 2026-03-25
+        updated_at:
+          type: string
+          example: 2026-03-25
+
+    
+    # schema para criar servico
+    CreateServico:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: Eletricista
+        descricao:
+          type: string
+          example: Reparação de curto-circuito
+        categoria:
+          type: string
+          example: Eletricidade
+        enabled:
+          type: boolean
+          example: true
+
+
+          
+
+    #schema generico de resposta de erro
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Servico nao encontrado
+        status:
+          type: boolean
+          example: false
+        data:
+          type: object 
+          properties:
+            null

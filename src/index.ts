@@ -1,9 +1,12 @@
-import express, { type Request, type Response } from "express";
-import { adicionarServico, apagarServico, listarServicos, obterServico } from "./servico.js";
-import { apagarPrestadorDeServico, calcularOrcamento, criarPrestadorDeServicos, editarPrestadorDeServico, obterPrestadorDeServico, selecionarPrestadorDeServico, SelecionarServicos } from "./orcamento.js";
-import { prestador } from "./prestador.js";
-import type { NovoservicoType, prestadorType, utilizadorType } from "./util/types.js";
-import { getUser, getUserById, novoServico, novoUtilizador } from "./user.js";
+import express from "express";
+import { router } from "./routs/servico.routs.js";
+import { rOuter } from "./routs/user.routs.js";
+import { ruter } from "./routs/prestador.routs.js";
+import { ruters } from "./routs/orcamento.routs.js";
+import { ruterss } from "./routs/proposta.routs.js";
+import { ruterrs } from "./routs/prestacao_servico.routs.js";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./docs/swagger.js";
 
 
 const app = express(); // cria a aplicação
@@ -15,161 +18,21 @@ app.get("/", (req, res) => {
 });
 
 
-// rota para adicionar um serviço
-app.post("/adicionar-servico", (req: Request, res: Response) => {
-    const novoServico = req.body;
-    console.log(novoServico);
-    const addServico = adicionarServico(novoServico);
-    res.json(addServico);
-});
+app.use("/servico", router)
+
+app.use("/user", rOuter)
+
+app.use("/prestador", ruter)
+
+app.use("/orcamento", ruters)
+
+app.use("/proposta", ruterss)
+
+app.use("/prestacao_servico", ruterrs)
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
-// rota para listar todos os serviços
-app.get("/listall", (req: Request, res: Response) => {
-    const listenerServicoResponse = listarServicos();
-    res.json({ listarServicosResponse: listarServicos() });
-});
-
-
-// rota para apagar um serviço 
-app.delete("/apagar-servico", (req: Request, res: Response) => {
-    const { nome } = req.query
-    if (nome) {
-        const apagarServicoResponse = apagarServico(nome as string);
-        res.json({ apagarServicoResponse })
-    } else
-        message: "nome do servico não encontrado"
-});
-
-
-// rota para obter servico pelo nome
-app.get("/obter-servico", (req: Request, res: Response) => {
-    const { nome } = req.query
-    if (nome) {
-        const obterServicoResponse = obterServico(nome as string)
-        res.json(obterServicoResponse)
-    } else {
-        { message: "nome do servico é obrigatório" }
-    }
-});
-
-
-// rota para selecionar servico
-app.post("/selecionar-servico", (req: Request, res: Response) => {
-    const { nome } = req.body;
-
-    const selecionarServicoResponse = SelecionarServicos(nome as string);
-    res.json({ selecionarServicoResponse })
-});
-
-
-// rota para calcular orcamento
-app.post("/calcular-orcamento", (req: Request, res: Response) => {
-    const { pedido } = req.body
-
-    const calcularOrcamentoresponse = calcularOrcamento(pedido)
-
-    res.json(calcularOrcamentoresponse)
-});
-
-
-// rota para selecionar prestadores
-app.post("/selecionar-prestador", (req: Request, res: Response) => {
-    const { nomeDoPrestador } = req.body
-
-    const selecionarPrestadorDeServicoresponse = criarPrestadorDeServicos(nomeDoPrestador);
-
-    res.json({
-        status:
-            selecionarPrestadorDeServicoresponse,
-        message: "prestador de servico selecionado com sucesso"
-    })
-});
-
-
-//rota para criar prestador 
-app.post("/criar-prestador", (req: Request, res: Response) => {
-    // pegar o corpo de requisicao com os dados do novo prestador
-    const novoPrestador = req.body
-    const criarPrestadorResponse = criarPrestadorDeServicos(novoPrestador)
-    res.json(criarPrestadorResponse)
-});
-
-
-// rota para editar prestador de servico
-app.get("/editar-prestador", (req: Request, res: Response) => {
-    const { nomeDoPrestador, novoDadosDoPrestador } = req.body
-    const editarPrestadorResponse = editarPrestadorDeServico(nomeDoPrestador as string, novoDadosDoPrestador);
-    res.json(editarPrestadorResponse)
-})
-
-
-
-//rota para apagar prestador de servico
-app.delete("/apagar-prestador-servico", (req: Request, res: Response) => {
-    const { nomePrestador } = req.query
-    const apagarPrestadorResponse = apagarPrestadorDeServico(nomePrestador as string);
-    res.json({ apagarPrestadorResponse })
-}
-);
-
-// rota para obter prestador de servico
-app.get("/obter-prestador-servico", (req: Request, res: Response) => {
-    const { nome } = req.query
-    if (nome) {
-        const obterPrestadorDeServicoResonse = obterPrestadorDeServico(nome as string);
-        res.json({ obterPrestadorDeServicoResonse })
-    }
-});
-
-
-// selecionar todos os utilizadores na base de dados
-app.get("//get-users", async (req: Request, res: Response) => {
-    const getUserResponse = await getUser()
-    res.json(getUserResponse)
-});
-
-// selecionar um utilizador por id
-app.get("/get-user-by-id", async (req: Request, res: Response) => {
-    const { id } = req.query
-
-    if (id) {
-        const getUserByIdResponse = await getUserById(id as string)
-        if (!getUserByIdResponse) {
-            res.status(404).json({
-                status: "error",
-                message: "utilizador nao encontrado",
-                data: null
-            })
-        }
-
-        res.status(200).json({
-            status: "success",
-            message: "utilizador encontrado",
-            data: getUserByIdResponse
-        })
-    }
-});
-
-
-// Inserir um novo utilizador
-app.post("/novo-utilizador", async (req: Request, res: Response) => {
-    const utilizador = req.body as utilizadorType
-
-    console.log({ " utilizador index.ts": utilizador })
-    const novoUtilizadorResponse = await novoUtilizador(utilizador)
-    res.json(novoUtilizadorResponse)
-
-});
-
-
-app.post("/introduzir-servico", async (req: Request, res: Response) => {
-    const NovoServico = req.body as NovoservicoType
-    console.log({ "servico": NovoServico })
-
-    const novoServicoResponse = await novoServico(NovoServico)
-    res.json(novoServicoResponse)
-});
 
 
 

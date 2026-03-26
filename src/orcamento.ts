@@ -1,3 +1,4 @@
+import db from "./lib/db.js";
 import { catalogoServico } from "./servico.js";
 import type { pedidoServico, prestadorType, Servicotype } from "./util/types.js";
 
@@ -146,6 +147,28 @@ export function selecionarPrestadorDeServico(nomeDoprestador: string) {
         }
         // senao retorna falso
         return false
+    }
+}
+
+// funcao para atualizar orcamento
+export async function updateOrcamento(id: string, updatedOrcamento: prestadorType) {
+    try {
+        const query = "UPDATE tabela_orcamentos SET cliente=?, servico=?, horas_estimadas=?, urgente=?, preco_hora=?, taxa_urgencia=?, minimo_desconto=?, percentagem_desconto=?, total=?, created_at=?, update_at=? WHERE id=?"
+        const values = [
+            updatedOrcamento.nome,
+            updatedOrcamento.profissao,
+            updatedOrcamento.precoHora,
+            updatedOrcamento.taxaUrgencia,
+            updatedOrcamento.minimoParaDesconto,
+            updatedOrcamento.percentagemDesconto,
+            new Date(),
+            id
+        ]
+        const [rows] = await db.execute(query, values)
+        return rows
+    } catch (error) {
+        console.log({ "error": error })
+        return null
     }
 }
 

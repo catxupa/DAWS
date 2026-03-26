@@ -1,8 +1,8 @@
-SELECT nome FROM tabela_utilizadores;
+SELECT nometabela_servicos FROM tabela_utilizadores;
 
-SELECT * FROM tabela_utilizadores;
+SELECT nome FROM tabela_servicos;
 
-SELECT id,nome FROM tabela_utilizadores;
+SELECT id,nome FROM tabela_servicos;
 
 SELECT tabela_utilizadores.id FROM tabela_utilizadores, tabela_prestadores;
 

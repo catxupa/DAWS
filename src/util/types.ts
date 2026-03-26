@@ -32,7 +32,7 @@ export interface utilizadorType {
     id: string
     nome: string
     numero_identificacao: string
-    data_nascemento: Date
+    data_nascimento: string
     email: string
     telefone: string
     pais: string
@@ -40,7 +40,7 @@ export interface utilizadorType {
     password: string
     enabled: boolean
     created_at: string
-    update_at: string
+    updated_at: string
 }
 
 
@@ -53,3 +53,55 @@ export interface NovoservicoType {
     created_at: string,
     updated_at: string
 }
+
+export interface NovoprestadorType {
+    id: string,
+    nome: string,
+    profissao: string,
+    taxa_urgencia: number,
+    minimo_desconto: number,
+    nif: number,
+    percentagem_desconto: number,
+    preco_hora: number,
+    disponivel: boolean,
+    enable: boolean,
+    created_at: string,
+    update_at: string
+}
+
+export interface NovoOrcamentoType {
+    id: string,
+    total: number,
+    id_utilizador: string,
+    enabled: boolean,
+    created_at: string,
+    updated_at: string
+}
+
+export interface NovapropostaType {
+    id: string,
+    id_prestacao: number,
+    preco_hora: number,
+    hora_estimadas: number,
+    estado: string,
+    enabled: boolean,
+    created_at: string,
+    update_at: string
+}
+
+
+export interface NovaprestacaoType {
+    id: string,
+    disignacao: string,
+    subtotal: number,
+    hora_estimadas: number,
+    id_prestador: string,
+    id_servico: string,
+    preco_hora: number,
+    estado: string,
+    id_orcamento: string,
+    enabled: boolean,
+    created_at: string,
+    updated_at: string
+}
+

@@ -1,12 +1,17 @@
-import db from "./libe/db.js";
-import type { NovoservicoType, utilizadorType } from "./util/types.js";
+import { error } from "node:console";
+import db from "./lib/db.js";
+import type { utilizadorType } from "./util/types.js";
+import { generateUUID } from "./util/uuid.js";
+import { hashpassword } from "./util/passwor.js";
+import { formatDateDDMMYYYY } from "./util/date.js";
 
+//funcao para selecionar todos os users no bd !*
 export async function getUser() {
     const [rows] = await db.execute("SELECT * FROM tabela_utilizadores;")
     return rows
 }
 
-
+// funcao para selecionar user apartir de bd por id !*
 export async function getUserById(id: string) {
     const [rows] = await db.execute(
         "SELECT * FROM tabela_utilizadores WHERE tabela_utilizadores.id = ?", [id])
@@ -15,24 +20,24 @@ export async function getUserById(id: string) {
     return Array.isArray(rows) ? rows[0] : null
 }
 
-
-export function novoUtilizador(utilizador: utilizadorType) {
+// funcao para adicionar novo user no bd !*
+export async function novoUtilizador(utilizador: utilizadorType) {
     console.log({ "utilizador users.ts": utilizador })
     try {
         const user = db.execute(`insert into tabela_utilizadores values (?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
-                utilizador.id,
+                generateUUID(),
                 utilizador.nome,
                 utilizador.numero_identificacao,
-                utilizador.data_nascemento,
+                await formatDateDDMMYYYY(utilizador.data_nascimento),
                 utilizador.email,
                 utilizador.telefone,
                 utilizador.pais,
                 utilizador.localidade,
-                utilizador.password,
+                await hashpassword(utilizador.password),
                 utilizador.enabled,
-                utilizador.created_at,
-                utilizador.update_at
+                new Date(),
+                new Date()
             ])
         if (Array.isArray(user) && user.length === 0) return null
         return user
@@ -43,24 +48,60 @@ export function novoUtilizador(utilizador: utilizadorType) {
 }
 
 
-export async function novoServico(NovoServico: NovoservicoType) {
-    console.log({ "New service": NovoServico })
+//atualizacao de  user !*
+export async function updateuser(id: string, updateduser: utilizadorType) {
     try {
-        const row = await db.execute(`INSERT INTO tabela_servicos Values (?,?,?,?,?,?,?)`,
-            [
-                null,
-                NovoServico.nome,
-                NovoServico.descricao,
-                NovoServico.categoria,
-                NovoServico.enabled,
-                NovoServico.created_at,
-                NovoServico.updated_at
-            ])
-        if (!row) return null
-        return row
+        const query = "UPDATE tabela_utilizadores SET nome=?, numero_identificacao=?, data_nascimento=?, email=?, telefone=?, pais=?, localidade=?, password=?, enabled=?, updated_at=?  WHERE id=?;"
 
+        const values = [
+            updateduser.nome,
+            updateduser.numero_identificacao,
+            await formatDateDDMMYYYY(updateduser.data_nascimento),
+            updateduser.email,
+            updateduser.telefone,
+            updateduser.pais,
+            updateduser.localidade,
+            await hashpassword(updateduser.password),
+            updateduser.enabled,
+            new Date(),
+            id]
+        const rows = await db.execute(query, values)
+        return rows
     } catch (error) {
-        console.log({ "error": error })
+        console.log(error)
         return null
     }
 }
+
+//funcao para apagar user no bd !*
+export async function deleteuser(id: string) {
+    try {
+        const query = "DELETE FROM tabela_utilizadores WHERE id=?"
+        const values = [id]
+        const rows = await db.execute(query, values)
+        return rows
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

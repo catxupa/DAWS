@@ -1,5 +1,6 @@
 
-import type { responseType, Servicotype } from "./util/types.js";
+import db from "./lib/db.js";
+import type { NovoservicoType, responseType, Servicotype, } from "./util/types.js";
 
 export let catalogoServico: Servicotype[] = [
     {
@@ -50,7 +51,7 @@ export function adicionarServico(NovoServico: Servicotype): responseType {
 }
 
 // listar todos os servicos
-export function listarServicos(): Servicotype[] {
+export function listarservicos(): Servicotype[] {
     return catalogoServico;
 }
 
@@ -79,5 +80,84 @@ export function obterServico(nome: string): Servicotype | null {
     return null
 }
 
+
+// funcao para adicionar novo servico no bd !*
+export async function novoServico(NovoServico: NovoservicoType) {
+    try {
+        const row = await db.execute(`INSERT INTO tabela_servicos Values (?,?,?,?,?,?,?)`,
+            [
+                null,
+                NovoServico.nome,
+                NovoServico.descricao,
+                NovoServico.categoria,
+                NovoServico.enabled,
+                NovoServico.created_at,
+                NovoServico.updated_at
+            ])
+        if (!row) return null
+        return row
+    } catch (error) {
+        console.log({ "error": error })
+        return null
+    }
+}
+
+// funcao para selecionar todos os servicos no bd !
+export async function listarServicos() {
+    try {
+        const servico = await db.execute(`SELECT * FROM tabela_servicos`)
+        return servico[0]
+    } catch (error) {
+        console.log({ "error": error })
+        return null
+    }
+}
+
+// funcao para obter servicos no bd por id !
+export async function getservicoById(id: string) {
+    try {
+        const [rows] = await db.execute(
+            "SELECT * FROM tabela_servicos WHERE tabela_servicos.id = ?", [id])
+
+        if (Array.isArray(rows) && rows.length === 0)
+            return null
+
+        return Array.isArray(rows) ? rows[0] : null
+    } catch (error) {
+        console.log({ "eror": error })
+    }
+}
+
+//update dados servico
+export async function updateservico(id: string, updatedservice: NovoservicoType) {
+    try {
+        const query = "UPDATE tabela_servicos SET nome=?, descricao=?, categoria=?, enabled=?, updated=?  WHERE id=?;"
+
+        const values = [
+            updatedservice.nome,
+            updatedservice.descricao,
+            updatedservice.categoria,
+            new Date(),
+            id]
+        const rows = await db.execute(query, values)
+        return rows
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+// funcao para deletar servico
+export async function deleteService(id: string) {
+    try {
+        const query = "DELETE FROM tabela_servicos WHERE id =?"
+        const value = [id]
+        const rows = await db.execute(query, value)
+        return rows
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
 
 

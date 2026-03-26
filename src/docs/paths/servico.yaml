@@ -1,0 +1,168 @@
+#--paths/servico.yaml--#
+
+
+paths:
+  #buscar todos os servicos
+  /servico:
+    get:
+      summary: Buscar todos os servicos
+      description: Retorna todos os servicos cadastrados na base de dados
+      responses:
+        "200":
+          description: Servicos encontrados com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Servico"
+        "404":
+          description: Servicos nao encontrados
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: "#/components/schemas/ResponseError"
+
+
+  #criar servico
+  "/service/create":
+    post:
+      summary: Criar um novo servico
+      description: Insere um novo servico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/CreateServico"
+        responses:
+          "200":
+            message: "Servico criado com sucesso"
+            status: true
+            data: 
+              type: object
+              $ref: "#/components/schemas/Servico"
+          "400":
+            description: dados invalidos
+            content:
+              application/json:
+                schema:
+                  type: object
+                  $ref: "#/components/schemas/ResponseError"
+
+
+  #buscar servico por id
+  "/service/get-by-id/{id}":
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do servico
+          schema:
+            type: string
+            example: 1
+      responses:
+        "200":
+          description: Servico encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Servico"
+        "404":
+          description: servico nao encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+
+
+  #atualizar servico
+  "/service/update/{id}":
+    put:
+      summary: Atualizar um servico
+      description: Atualiza um servico existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do servico a ser atualizado
+          schema:
+            type: string
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/CreateServico"
+        responses:
+          "200":
+            message: "Servico atualizado com sucesso"
+            status: true
+            data: 
+              type: object
+              $ref: "#/components/schemas/Servico"
+          "400":
+            description: dados invalidos
+            content:
+              application/json:
+                schema:
+                  type: object
+                  $ref: "#/components/schemas/ResponseError"
+          "404":
+            description: servico nao encontrado
+            content:
+              application/json:
+                schema:
+                  type: object
+                  $ref: "#/components/schemas/ResponseError"
+
+
+  #deletar servico
+  "/service/delete/{id}":
+    delete:
+      summary: Apagar um servico
+      description: Apagar um servico existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do servico a ser apagado
+          schema:
+            type: string
+            example: 1
+      responses:
+        "200":
+          description: Servico apagado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Servico"
+        "400":
+          description: dados invalidos
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: servico nao encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+     
+              
+
+
+          
+  
+ 
