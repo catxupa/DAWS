@@ -1,0 +1,147 @@
+
+
+#--schema/prestador.yaml--#
+
+# id: string,
+# nome: string,
+# profissao: string,
+# taxa_urgencia: number,
+# minimo_desconto: number,
+# nif: number,
+# percentagem_desconto: number,
+# preco_hora: number,
+# disponivel: boolean,
+# enable: boolean,
+# created_at: string,
+# update_at: string
+
+
+components:
+    schemas:
+    #schema principal para buscar prestador
+      Prestador:
+        type: object
+        properties:
+          id: 
+            type: string
+            example: "1"
+          nome: 
+            type: string
+            example: "Bruno Monteiro"
+          profissao: 
+            type: string
+            example: "Eletricista"
+          taxa_urgencia: 
+            type: number
+            example: 1.2
+          minimo_desconto: 
+            type: number
+            example: 10
+          nif: 
+            type: number
+            example: 123456789
+          percentagem_desconto: 
+            type: number
+            example: 10
+          preco_hora: 
+            type: number
+            example: 10
+          disponivel: 
+            type: boolean
+            example: true
+          enable: 
+            type: boolean
+            example: true
+          created_at: 
+            type: string
+            example: "2026-03-25"
+          update_at: 
+            type: string
+            example: "2026-03-25"
+
+
+     #schema para criar prestador
+      CreatePrestador:
+        type: object
+        properties:
+          nome: 
+            type: string
+            example: "Bruno Monteiro"
+          profissao: 
+            type: string
+            example: "Eletricista"
+          taxa_urgencia: 
+            type: number
+            example: 1.2
+          minimo_desconto: 
+            type: number
+            example: 10
+          nif: 
+            type: number
+            example: 123456789
+          percentagem_desconto: 
+            type: number
+            example: 10
+          preco_hora: 
+            type: number
+            example: 10
+          disponivel: 
+            type: boolean
+            example: true
+          enable: 
+            type: boolean
+            example: true
+
+
+      #schema para atualizar prestador
+      UpdatePrestador:
+        type: object
+        properties:
+          id: 
+            type: string
+            example: "1"
+          nome: 
+            type: string
+            example: "Bruno Monteiro"
+          profissao: 
+            type: string
+            example: "Eletricista"
+          taxa_urgencia: 
+            type: number
+            example: 1.2
+          minimo_desconto: 
+            type: number
+            example: 10
+          nif: 
+            type: number
+            example: 123456789
+          percentagem_desconto: 
+            type: number
+            example: 10
+          preco_hora: 
+            type: number
+            example: 10
+          disponivel: 
+            type: boolean
+            example: true
+          enable: 
+            type: boolean
+            example: true
+
+
+      #schema para deletar prestador
+      DeletePrestador:
+        type: object
+        properties:
+          id: 
+            type: string
+            example: "1"
+
+
+      #schema para buscar prestador por id
+      GetPrestadorById:
+        type: object
+        properties:
+          id: 
+            type: string
+            example: "1"

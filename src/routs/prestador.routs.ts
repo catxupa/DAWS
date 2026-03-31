@@ -13,9 +13,9 @@ const prestadorRoute = {
 const ruter = Router()
 
 // rota para inserir um novo prestador na base de dados !*
-ruter.post(prestadorRoute.create, prestadorControler.createPrestador)
-ruter.get(prestadorRoute.getById, prestadorControler.getPrestadorById)
 ruter.get(prestadorRoute.getALL, prestadorControler.getAllPrestadores)
+ruter.get(prestadorRoute.getById, prestadorControler.getPrestadorById)
+ruter.post(prestadorRoute.create, prestadorControler.createPrestador)
 ruter.put(prestadorRoute.update, prestadorControler.updatePrestador)
 ruter.delete(prestadorRoute.delete, prestadorControler.deletePrestador)
 

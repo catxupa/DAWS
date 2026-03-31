@@ -1,0 +1,149 @@
+
+
+#--schema/prestacao.yaml--#
+
+# id: string,
+# disignacao: string,
+# subtotal: number,
+# hora_estimadas: number,
+# id_prestador: string,
+# id_servico: string,
+# preco_hora: number,
+# estado: string,
+# id_orcamento: string,
+# enabled: boolean,
+# created_at: string,
+# updated_at: string
+
+components:
+    schemas:
+        #schema principal para buscar prestacao
+        prestacao_servico:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+                disignacao: 
+                    type: string
+                    example: "Eletricista"
+                subtotal: 
+                    type: number
+                    example: 10
+                hora_estimadas: 
+                    type: number
+                    example: 10
+                id_prestador: 
+                    type: string
+                    example: "1"
+                id_servico: 
+                    type: string
+                    example: "1"
+                preco_hora: 
+                    type: number
+                    example: 10
+                estado: 
+                    type: string
+                    example: "pendente"
+                id_orcamento: 
+                    type: string
+                    example: "1"
+                enabled: 
+                    type: boolean
+                    example: true
+                created_at: 
+                    type: string
+                    example: "2026-03-25"
+                updated_at: 
+                    type: string
+                    example: "2026-03-25"
+
+
+    #schema para criar prestacao
+    createprestacao_servico:
+        type: object
+        properties:
+            disignacao: 
+                type: string
+                example: "Eletricista"
+            subtotal: 
+                type: number
+                example: 10
+            hora_estimadas: 
+                type: number
+                example: 10
+            id_prestador: 
+                type: string
+                example: "1"
+            id_servico: 
+                type: string
+                example: "1"
+            preco_hora: 
+                type: number
+                example: 10
+            estado: 
+                type: string
+                example: "pendente"
+            id_orcamento: 
+                type: string
+                example: "1"
+            enabled: 
+                type: boolean
+                example: true
+
+
+    #schema para atualizar prestacao
+    updateprestacao_servico:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "1"
+            disignacao: 
+                type: string
+                example: "Eletricista"
+            subtotal: 
+                type: number
+                example: 10
+            hora_estimadas: 
+                type: number
+                example: 10
+            id_prestador: 
+                type: string
+                example: "1"
+            id_servico: 
+                type: string
+                example: "1"
+            preco_hora: 
+                type: number
+                example: 10
+            estado: 
+                type: string
+                example: "pendente"
+            id_orcamento: 
+                type: string
+                example: "1"
+            enabled: 
+                type: boolean
+                example: true
+
+
+    #schema para buscar prestacao por id
+    getprestacao_servico_by_id:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "1"
+
+
+    #schema para deletar prestacao
+    deleteprestacao_servico:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "1"
+
+
+

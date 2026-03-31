@@ -7,8 +7,6 @@ import type { Request, Response } from "express"
 export const servicoController = {
     async createServico(req: Request, res: Response) {
         const novoServico: NovoservicoType = req.body
-
-
         if (!novoServico) {
             return res.status(400).json({
                 status: "error",

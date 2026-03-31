@@ -1,7 +1,9 @@
 import { userModel } from "../models/user.models.js";
 import { novoUtilizador, updateuser, deleteuser } from "../user.js";
+import { comparepassword } from "../util/passwor.js";
 import type { utilizadorType } from "../util/types.js";
-import type { Request, Response } from "express"
+import type { Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
 //controler para selecionar todos os users no bd !*  
 export const userControlers = {
@@ -12,14 +14,14 @@ export const userControlers = {
         if (!users) {
             return res.status(500).json({
                 status: "error",
-                message: "erro ao buscar users",
+                message: "Erro ao buscar utilizador",
                 data: null
             })
         }
 
         return res.status(200).json({
             status: "success",
-            message: "users buscados com sucesso",
+            message: "Utilizador buscados com sucesso",
             data: users
         })
     },
@@ -51,40 +53,122 @@ export const userControlers = {
         if (!updatedUserResponse) {
             return res.status(500).json({
                 status: "erro",
-                message: "erro ao atualizar user",
+                message: "Erro ao atualizar utilizador",
                 data: null
             })
         }
 
         return res.status(200).json({
             status: "sucess",
-            message: "user atualizado com sucesso",
+            message: "Utilizador atualizado com sucesso",
             data: updatedUserResponse
         })
     },
 
-//controler para apagar user !*
-async deleteuser(req: Request, res: Response) {
-    const { id } = req.params
+    // controler para selecionar user por id
+    async getUserById(req: Request, res: Response) {
+        const id = req.params.id
 
-    if (!id) {
-        return res.status(400).json({
-            status: "erro",
-            message: "id obrigatorio",
-            data: null
+        const user = await userModel.getUserById(id as string)
+
+        if (!user) {
+            return res.status(404).json({
+                status: "erro",
+                message: "Utilizador nao encontrado",
+                data: null
+            })
+        }
+
+        return res.status(200).json({
+            status: "sucess",
+            message: "Utilizador encontrado com sucesso",
+            data: user
         })
-    }
+    },
 
-    const deleteUserResponse = await deleteuser(id as string)
+    //controler para apagar user !*
+    async deleteuser(req: Request, res: Response) {
+        const { id } = req.params
 
-    if (!deleteUserResponse) {
-        return res.status(500).json({
-            status: "erro",
-            message: "erro ao apagar este user",
-            data: null
+        if (!id) {
+            return res.status(400).json({
+                status: "erro",
+                message: "id obrigatorio",
+                data: null
+            })
+        }
+
+        const deleteUserResponse = await deleteuser(id as string)
+
+        if (!deleteUserResponse) {
+            return res.status(500).json({
+                status: "erro",
+                message: "Erro ao apagar utilizador",
+                data: null
+            })
+        }
+        return res.status(200).json({
+            status: "sucess",
+            message: "Utilizador apagado com sucesso",
+            data: deleteUserResponse
         })
+    },
+
+    // funcao para login
+    async Login(req: Request, res: Response) {
+        try {
+            const { email, password } = req.body
+
+            if (!email || !password) {
+                return res.status(400).json({
+                    status: "erro",
+                    message: "dados de servicos invalidos",
+                    data: null
+                })
+            }
+
+            const userData = await userModel.getUserByEmail(email as string)
+
+            if (!userData) {
+                return res.status(404).json({
+                    status: "erro",
+                    message: "nao existe usuario com este email",
+                    data: null
+                })
+            }
+
+            const isPasswordValid = await comparepassword(password, userData.password);
+
+            if (!isPasswordValid) {
+                return res.status(401).json({
+                    status: "erro",
+                    message: "credenciais invalidas",
+                    data: null
+                })
+            }
+
+            const payload = {
+                id: userData.id,
+                email: userData.email,
+                nome: userData.nome
+            }
+
+            const token = jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: "1h" })
+            res.status(200).json({
+                status: "sucess",
+                message: "Login realizado com sucesso",
+                data: token
+            })
+
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({
+                status: "erro",
+                message: "Erro interno no servidor",
+                data: null
+            })
+        }
     }
-    return res.status(200)
 }
-}
+
 

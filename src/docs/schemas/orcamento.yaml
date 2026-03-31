@@ -1,0 +1,85 @@
+
+#--schemas/orcamento.yaml--#
+
+   # id: string,
+   # total: number,
+   # id_utilizador: string,
+   # enabled: boolean,
+   # created_at: string,
+   # updated_at: string
+
+components:
+    schemas:
+        #schema principal para buscar orcamento
+        orcamento:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+                total: 
+                    type: number
+                    example: 10
+                id_utilizador: 
+                    type: string
+                    example: "1"
+                enabled: 
+                    type: boolean
+                    example: true
+                created_at: 
+                    type: string
+                    example: "2026-03-25"
+                updated_at: 
+                    type: string
+                    example: "2026-03-25"
+
+
+    #schema para criar orcamento
+    createorcamento:
+        type: object
+        properties:
+            total: 
+                type: number
+                example: 10
+            id_utilizador: 
+                type: string
+                example: "1"
+            enabled: 
+                type: boolean
+                example: true
+
+
+    #schema para atualizar orcamento
+    updateorcamento:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "1"
+            total: 
+                type: number
+                example: 10
+            id_utilizador: 
+                type: string
+                example: "1"
+            enabled: 
+                type: boolean
+                example: true
+
+
+    #schema para buscar orcamento por id
+    getorcamento_by_id:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "1"
+
+
+    #schema para deletar orcamento
+    deleteorcamento:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "1"

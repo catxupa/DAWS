@@ -90,7 +90,7 @@ export const prestacaoServicoModel = {
             const query = "SELECT * FROM tabela_prestacao_servicos WHERE id=?"
             const values = [id]
             const rows = await db.execute(query, values)
-            return rows[0]
+            return rows [0]
         } catch (error) {
             console.log(error)
             return null
@@ -102,7 +102,7 @@ export const prestacaoServicoModel = {
         try {
             const query = "SELECT * FROM tabela_prestacao_servicos"
             const rows = await db.execute(query)
-            return rows
+            return rows[0]
         } catch (error) {
             console.log(error)
             return null

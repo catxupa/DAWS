@@ -24,7 +24,7 @@ export const userModel = {
         return Array.isArray(rows) ? rows[0] : null
     },
 
-    //funcao para adicionar novo user no bd !*  
+    //funcao para criar novo user no bd !*  
     async novoUtilizador(utilizador: utilizadorType) {
         try {
             const row = await db.execute(`INSERT INTO tabela_utilizadores VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
@@ -51,9 +51,9 @@ export const userModel = {
     },
 
     //funcao para atualizar user no bd !*  
-   async updateuser(id: string, updateduser: utilizadorType) {
-    try {
-        const query = `
+    async updateuser(id: string, updateduser: utilizadorType) {
+        try {
+            const query = `
         UPDATE tabela_utilizadores SET 
             nome=?, 
             numero_identificacao=?, 
@@ -67,29 +67,29 @@ export const userModel = {
             updated_at=?  
         WHERE id=?`
 
-        // Verifica se data_nascemento existe antes de tentar formatar ou usar
-        
-        const values = [
-            updateduser.nome,
-            updateduser.numero_identificacao,
-            updateduser.data_nascimento, // Envia YYYY-MM-DD direto para o MySQL
-            updateduser.email,
-            updateduser.telefone,
-            updateduser.pais,
-            updateduser.localidade,
-            await hashpassword(updateduser.password),
-            updateduser.enabled,
-            new Date(), 
-            id
-        ]
+            // Verifica se data_nascemento existe antes de tentar formatar ou usar
 
-        const [rows] = await db.execute(query, values)
-        return rows
-    } catch (error) {
-        console.error("Erro no update:", error)
-        return null
-    }
-},
+            const values = [
+                updateduser.nome,
+                updateduser.numero_identificacao,
+                updateduser.data_nascimento, // Envia YYYY-MM-DD direto para o MySQL
+                updateduser.email,
+                updateduser.telefone,
+                updateduser.pais,
+                updateduser.localidade,
+                await hashpassword(updateduser.password),
+                updateduser.enabled,
+                new Date(),
+                id
+            ]
+
+            const [rows] = await db.execute(query, values)
+            return rows
+        } catch (error) {
+            console.error("Erro no update:", error)
+            return null
+        }
+    },
 
     //funcao para apagar user no bd !*  
     async deleteuser(id: string) {
@@ -98,6 +98,23 @@ export const userModel = {
             const values = [id]
             const rows = await db.execute(query, values)
             return rows
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    },
+
+    // funcao para verificar email
+    async getUserByEmail(email: string): Promise<utilizadorType | null> {
+        try {
+            const [rows] = await db.execute(
+                "SELECT * FROM tabela_utilizadores WHERE tabela_utilizadores.email = ?", [email])
+
+            if (Array.isArray(rows) && rows.length === 0)
+                return null
+
+            return Array.isArray(rows) ? rows[0] as utilizadorType : null
+
         } catch (error) {
             console.log(error)
             return null

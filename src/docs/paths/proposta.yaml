@@ -1,0 +1,144 @@
+
+#--paths/proposta.yaml--#
+
+paths:
+    #buscar todas as propostas
+    /proposta:
+        get:
+            tags:
+                - Proposta *
+            summary: Buscar todas as propostas
+            responses:
+                "200":
+                    description: Propostas encontradas com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/proposta"
+                "404":
+                    description: Propostas nao encontradas
+                    content:
+                        application/json:
+                            schema:
+                                    $ref: "#/components/schemas/ResponseError"            
+
+
+    #criar proposta
+    /proposta/create:
+        post:
+            tags:
+                - Proposta *
+            summary: Criar proposta 
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Createproposta"
+            responses:
+                "200":
+                    description: Proposta criada com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/proposta"
+                "400":
+                    description: Erro ao criar proposta
+                    example: Erro ao criar proposta
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ResponseError"
+
+
+    #buscar proposta por id
+    /proposta/get-by-id/{id}:
+        get:
+            tags:
+                - Proposta *
+            summary: Buscar proposta por id
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Proposta encontrada com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/proposta"
+                "404":
+                    description: Proposta nao encontrada
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ResponseError"
+
+
+#atualizar proposta
+    /proposta/update/{id}:
+        put:
+            tags:
+                - Proposta *
+            summary: Atualizar proposta
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/updateproposta"
+            responses:
+                "200":
+                    description: Proposta atualizada com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/proposta"
+                "404":
+                    description: Proposta nao encontrada
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ResponseError"
+
+
+#deletar proposta
+    /proposta/delete/{id}:
+        delete:
+            tags:
+                - Proposta *
+            summary: Deletar proposta de servico
+            description: Apagar proposta de servico
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Proposta deletada com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/proposta"
+                "404":
+                    description: Proposta nao encontrada
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ResponseError"
+    

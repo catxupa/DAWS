@@ -1,0 +1,148 @@
+
+
+#--schema/user.yaml--#
+
+# id: string
+# nome: string
+# numero_identificacao: string
+# data_nascimento: string
+# email: string
+# telefone: string
+# pais: string
+# localidade: string
+# password: string
+# enabled: boolean
+# created_at: string
+# updated_at: string
+
+
+components:
+  #schema principal para buscar utilizador
+  schemas:
+    #schema principal para buscar utilizador
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1
+        nome:
+          type: string
+          example: "Bruno Monteiro"
+        numero_identificacao:
+          type: string
+          example: "123456789"
+        data_nascimento:
+          type: string
+          example: "2000-01-01"
+        email:
+          type: string
+          example: "bruno20@gmail.com"  
+        telefone:
+          type: string
+          example: "123456789"
+        pais:
+          type: string
+          example: "Portugal"
+        localidade:
+          type: string
+          example: "Lisboa"
+        password:
+          type: string
+          example: "123456789"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          example: "2000-01-01"
+        updated_at:
+          type: string
+          example: "2000-01-01"
+
+
+    #schema para criar utilizador
+    CreateUser:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Bruno Monteiro"
+        numero_identificacao:
+          type: string
+          example: "123456789"
+        data_nascimento:
+          type: string
+          example: "2000-01-01"
+        email:
+          type: string
+          example: "bruno20@gmail.com"  
+        telefone:
+          type: string
+          example: "123456789"
+        pais:
+          type: string
+          example: "Portugal"
+        localidade:
+          type: string
+          example: "Lisboa"
+        password:
+          type: string
+          example: "123456789"
+        enabled:
+          type: boolean
+          example: true
+
+
+    #schema para atualizar utilizador
+    UpdateUser:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Bruno Monteiro"
+        numero_identificacao:
+          type: string
+          example: "123456789"
+        data_nascimento:
+          type: string
+          example: "2000-01-01"
+        email:
+          type: string
+          example: "bruno20@gmail.com"  
+        telefone:
+          type: string
+          example: "123456789"
+        pais:
+          type: string
+          example: "Portugal"
+        localidade:
+          type: string
+          example: "Lisboa"
+        password:
+          type: string
+          example: "123456789"
+        enabled:
+          type: boolean
+          example: true
+
+
+          #schema para delete user
+          DeleteUser:
+            type: object
+            properties:
+              id:
+                type: string
+                example: "1"
+
+
+    #schema para login
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "bruno20@gmail.com"  
+        password:
+          type: string
+          example: "123456789"

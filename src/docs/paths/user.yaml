@@ -1,0 +1,205 @@
+
+
+#--paths/user.yaml--#
+
+
+paths:
+  #buscar todos os utilizadores
+  /user:
+    get:
+      tags:
+        - User *
+      summary: Buscar todos os utilizadores
+      responses:
+        "200":
+          description: Lista de utilizadores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CreateUser"
+        "404":
+          description: Utilizador nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+  #criar utilizador
+  /user/create:
+    post:
+      tags:
+        - User *
+      summary: Criar um novo utilizador
+      description: Insere um novo utilizador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUser" 
+      responses:
+        "200":
+          description: Utilizador criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+       
+
+
+  #buscar utilizador por id
+  /user/get-by-id/{id}:
+    get:
+      tags:
+        - User *
+      summary: Buscar utilizador por ID
+      description: Retorna um utilizador pelo seu ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do utilizador
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Utilizador encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateUser"
+        "404":
+          description: Utilizador nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+  #atualizar utilizador
+  /user/update/{id}:
+    put:
+      tags:
+        - User *
+      summary: Atualizar utilizador
+      description: Atualiza um utilizador existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do utilizador a ser atualizado
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUser"
+      responses:
+        "200":
+          description: Utilizador atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateUser"
+        "400":
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: Utilizador nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+  #deletar utilizador
+  /user/delete/{id}:
+    delete:
+      tags:
+        - User *
+      summary: Apagar utilizador
+      description: Apagar utilizador
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do utilizador a ser apagado
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Utilizador apagado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteUser"
+        "400":
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: Utilizador nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+  #login
+  /user/login:
+    post:
+      tags:
+        - User *
+      summary: Login
+      description: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserResponseSuccess"
+      responses:
+        "200":
+          description: Login realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Login"
+        "400":
+          description: Dados invalidos
+          
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseError"
+        "404":
+          description: Utilizador nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseError"
+
+
+
+    
+
+  

@@ -63,13 +63,13 @@ export const orcamentoModel = {
         }
     },
 
-    // funcao para obter orcamento
+    // funcao para obter orcamento por id
     async getOrcamento(id: string) {
         try {
-            const query = "SELECT * FROM tabela_orcamentos WHERE id=?"
+            const query = "SELECT * FROM tabela_orcamento WHERE id=?"
             const values = [id]
             const rows = await db.execute(query, values)
-            return rows
+            return rows[0]
         } catch (error) {
             console.log(error)
             return null
@@ -79,9 +79,9 @@ export const orcamentoModel = {
     // funcao para obter todos os orcamentos
     async getAllOrcamentos() {
         try {
-            const query = "SELECT * FROM tabela_orcamentos"
+            const query = "SELECT * FROM tabela_orcamento"
             const rows = await db.execute(query)
-            return rows
+            return rows[0]
         } catch (error) {
             console.log(error)
             return null

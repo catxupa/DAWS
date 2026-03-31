@@ -11,14 +11,14 @@
 
 
 components:
-    schemas:
+  schemas:
     #schema principal para buscar servico
     Servico:
       type: object
       properties:
         id:
           type: string
-          example: 1
+          example: "1"
         nome:
           type: string
           example: Eletricista
@@ -33,10 +33,10 @@ components:
           example: true
         created_at:
           type: string
-          example: 2026-03-25
+          example: "2026-03-25"
         updated_at:
           type: string
-          example: 2026-03-25
+          example: "2026-03-25"
 
     
     # schema para criar servico
@@ -57,19 +57,20 @@ components:
           example: true
 
 
-          
-
-    #schema generico de resposta de erro
-    ResponseError:
+    #schema para atualizar servico
+    UpdateServico:
       type: object
       properties:
-        message:
+        nome:
           type: string
-          example: Servico nao encontrado
-        status:
+          example: Eletricista
+        descricao:
+          type: string
+          example: Reparação de curto-circuito
+        categoria:
+          type: string
+          example: Eletricidade
+        enabled:
           type: boolean
-          example: false
-        data:
-          type: object 
-          properties:
-            null
+          example: true
+

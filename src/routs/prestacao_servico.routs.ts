@@ -4,7 +4,7 @@ import { prestacaoControler } from "../controler/prestacao.controler.js"
 
 const prestacao_servicoRoute = {
     create: "/create",
-    getById: "/get-prestacao-servico-by-id/:id",
+    getById: "/get-by-id/:id",
     getALL: "/",
     update: "/update/:id",
     delete: "/delete/:id"
@@ -19,4 +19,4 @@ ruterrs.get(prestacao_servicoRoute.getALL, prestacaoControler.getAllPrestacoesSe
 ruterrs.put(prestacao_servicoRoute.update, prestacaoControler.updatePrestacaoServico)
 ruterrs.delete(prestacao_servicoRoute.delete, prestacaoControler.deletePrestacaoServico)
 
-export { ruterrs }
+export { ruterrs } 

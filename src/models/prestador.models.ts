@@ -27,7 +27,6 @@ export const prestadorModel = {
 
     //funcao para adicionar novo prestador no bd !*
     async novoPrestador(Novoprestador: NovoprestadorType) {
-        console.log({ "Novo prestador": Novoprestador })
         try {
             const row = await db.execute(`INSERT INTO tabela_prestadores Values (?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [

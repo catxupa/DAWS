@@ -1,0 +1,116 @@
+
+
+ #--schema/proposta.yaml--#
+
+ #   id: string,
+ #   id_prestacao: number,
+ #   preco_hora: number,
+ #   hora_estimadas: number,
+ #   estado: string,
+ #   enabled: boolean,
+ #   created_at: string,
+ #   update_at: string
+
+ components:
+    schemas:
+        #schema principal para buscar proposta
+        proposta:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+                id_prestacao: 
+                    type: number
+                    example: 1
+                preco_hora: 
+                    type: number
+                    example: 10
+                hora_estimadas:
+                    type: number
+                    example: 10
+                estado: 
+                    type: string
+                    example: "pendente"
+                enabled: 
+                    type: boolean
+                    example: true
+                created_at: 
+                    type: string
+                    example: "2026-03-25"
+                update_at: 
+                    type: string
+                    example: "2026-03-25"
+
+
+        #schema para criar proposta
+        Createproposta:
+            type: object
+            properties:
+                id_prestacao: 
+                    type: number
+                    example: 1
+                preco_hora: 
+                    type: number
+                    example: 10
+                hora_estimadas:
+                    type: number
+                    example: 10
+                estado: 
+                    type: string
+                    example: "pendente"
+                enabled: 
+                    type: boolean
+                    example: true
+
+
+        #schema para atualizar proposta
+        Updateproposta:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+                id_prestacao: 
+                    type: number
+                    example: 1
+                preco_hora: 
+                    type: number
+                    example: 10
+                hora_estimadas:
+                    type: number
+                    example: 10
+                estado: 
+                    type: string
+                    example: "pendente"
+                enabled: 
+                    type: boolean
+                    example: true
+
+
+        #schema para deletar proposta
+        Deleteproposta:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+
+
+        #schema para buscar proposta por id
+        GetpropostaById:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+
+
+    
+
+
+
+
+
+
+

@@ -5,7 +5,6 @@ import type { NovapropostaType } from "../util/types.js"
 // fuuncoes para criar proposta
 export const propostaModel = {
     async createProposta(novaProposta:NovapropostaType) {
-        console.log("proposta model", novaProposta)
         
         try {
             const row = await db.execute(`INSERT INTO tabela_proposta Values (?,?,?,?,?,?,?,?)`,
@@ -66,7 +65,7 @@ export const propostaModel = {
         try {
             const row = await db.execute(`SELECT * FROM tabela_proposta WHERE id = ?`, [id])
             if (!row) return null
-            return row
+            return row[0]
         } catch (error) {
             console.log({ "error": error })
             return null

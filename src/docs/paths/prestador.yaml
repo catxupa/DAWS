@@ -1,102 +1,103 @@
-#--paths/servico.yaml--#
+
+
+# paths/prestador.yaml
 
 
 paths:
-  #buscar todos os servicos
-  /Servico:
+  #buscar todos os prestadores
+  /prestador:
     get:
       tags:
-        - Service *
-      summary: Buscar todos os servicos
-      description: Retorna todos os servicos
+        - Prestador *
+      summary: Buscar todos os prestadores
+      description: Retorna todos os prestadores
       responses:
         "200":
-          description: Servicos encontrados com sucesso
+          description: Prestadores encontrados com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Servico"
+                  $ref: "#/components/schemas/ResponseSuccess"
         "404":
-          description: Servicos nao encontrados
+          description: Prestadores nao encontrados
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
 
-  #criar servico
-  "/Servico/create":
+  #criar prestador
+  /create/prestador:
     post:
       tags:
-        - Service *
-      summary: Criar um novo servico
-      description: Insere um novo servico
+        - Prestador *
+      summary: Criar um novo prestador
+      description: Insere um novo prestador
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateServico"
+              $ref: "#/components/schemas/CreatePrestador"
       responses:
         "200":
-          description: Servico criado com sucesso
+          description: Prestador criado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Servico"
+                $ref: "#/components/schemas/ResponseSucces"
         "400":
           description: Dados invalidos
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Responseerror"
+                $ref: "#/components/schemas/ResponseError"
 
 
-  #buscar servico por id
-  "/Servico/get-by-id/{id}":
+  #buscar prestador por id
+  /prestador/get-prestador-by-id/{id}:
     get:
       tags:
-        - Service *
-      summary: Buscar servico por ID
-      description: Retorna um servico pelo seu ID
+        - Prestador *
+      summary: Buscar prestador por ID
+      description: Retorna um prestador pelo seu ID
       parameters:
         - name: id
           in: path
           required: true
-          description: id do servico
+          description: id do prestador
           schema:
             type: string
             example: "1"
       responses:
         "200":
-          description: Servico encontrado com sucesso
+          description: Prestador encontrado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Servico"
-                
+                $ref: "#/components/schemas/GetPrestadorById"
         "404":
-          description: Servico nao encontrado
+          description: Prestador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Responseerror"
+                $ref: "#/components/schemas/ResponseError"
 
 
-  #atualizar servico
-  "/Servico/update/{id}":
+  #atualizar prestador
+  /prestador/update/{id}:
     put:
       tags:
-        - Service *
-      summary: Atualizar um servico
-      description: Atualiza um servico existente
+        - Prestador *
+      summary: Atualizar prestador
+      description: Atualiza um prestador existente
       parameters:
         - name: id
           in: path
           required: true
-          description: id do servico a ser atualizado
+          description: id do prestador a ser atualizado
           schema:
             type: string
             example: "1"
@@ -105,14 +106,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateServico"
+              $ref: "#/components/schemas/UpdatePrestador"
       responses:
         "200":
-          description: Servico atualizado com sucesso
+          description: Prestador atualizado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Servico"
+                $ref: "#/components/schemas/UpdatePrestador"
         "400":
           description: Dados invalidos
           content:
@@ -120,35 +121,35 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "404":
-          description: Servico nao encontrado
+          description: Prestador nao encontrado
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
 
-  #deletar servico
-  "/Servico/delete/{id}":
+  #deletar prestador
+  /prestador/delete/{id}:
     delete:
       tags:
-        - Service *
-      summary: Apagar um servico
-      description: Apagar um servico existente
+        - Prestador *
+      summary: Deletar prestador
+      description: Deleta um prestador existente
       parameters:
         - name: id
           in: path
           required: true
-          description: id do servico a ser apagado
+          description: id do prestador a ser deletado
           schema:
             type: string
             example: "1"
       responses:
         "200":
-          description: Servico apagado com sucesso
+          description: Prestador deletado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Servico"
+                $ref: "#/components/schemas/DeletePrestador"
         "400":
           description: Dados invalidos
           content:
@@ -156,8 +157,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "404":
-          description: Servico nao encontrado
+          description: Prestador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/ResponseError" 
+
+
+          

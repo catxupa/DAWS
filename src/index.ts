@@ -7,6 +7,9 @@ import { ruterss } from "./routs/proposta.routs.js";
 import { ruterrs } from "./routs/prestacao_servico.routs.js";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./docs/swagger.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 
 const app = express(); // cria a aplicação
@@ -30,7 +33,7 @@ app.use("/proposta", ruterss)
 
 app.use("/prestacao_servico", ruterrs)
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 

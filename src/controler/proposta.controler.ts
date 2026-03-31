@@ -52,7 +52,7 @@ export const propostaControler = {
         }
         return res.status(200).json({
             status: "success",
-            message: "prestador atualizado com sucesso",
+            message: "proposta atualizada com sucesso",
             data: updatePropostaResponse
         })
     },
@@ -64,13 +64,13 @@ export const propostaControler = {
         if (!deletePropostaResponse) {
             return res.status(500).json({
                 status: "error",
-                message: "erro ao apagar prestador",
+                message: "erro ao apagar proposta",
                 data: null
             })
         }
         return res.status(200).json({
             status: "success",
-            message: "prestador apagado com sucesso",
+            message: "proposta apagada com sucesso",
             data: deletePropostaResponse
         })
     },
@@ -82,7 +82,7 @@ export const propostaControler = {
         if (!getPropostaByIdResponse) {
             return res.status(500).json({
                 status: "error",
-                message: "erro ao buscar prestador",
+                message: "erro ao buscar proposta",
                 data: null
             })
         }
@@ -99,7 +99,7 @@ export const propostaControler = {
         if (!getAllPropostasResponse) {
             return res.status(500).json({
                 status: "error",
-                message: "erro ao buscar prestador",
+                message: "erro ao buscar proposta",
                 data: null
             })
         }

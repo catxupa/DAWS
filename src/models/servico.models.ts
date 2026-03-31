@@ -1,11 +1,11 @@
 import { id } from "date-fns/locale"
 import db from "../lib/db.js"
-import type { NovoservicoType } from "../util/types.js" 
+import type { NovoservicoType } from "../util/types.js"
 import type { deleteService } from "../servico.js"
 import { formatDateDDMMYYYY } from "../util/date.js"
 
 
-export const servicoModel = { 
+export const servicoModel = {
     //funcao para criar um novo servico
     async create(novoServico: NovoservicoType) {
         try {

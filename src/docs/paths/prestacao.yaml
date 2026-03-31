@@ -1,0 +1,165 @@
+
+#--paths/prestacao.yaml--#
+
+
+paths:
+  #--buscar todas as prestacoes
+  /prestacao_servico:
+    get:
+      tags:
+        - Prestacao *
+      summary: Buscar todas as prestacoes
+      responses:
+        "200":
+          description: Prestacoes encontradas com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "500":
+          description: Erro ao buscar prestacoes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+#--criar prestacao de servico
+  /prestacao_servico/create:
+    post:
+      tags:
+        - Prestacao *
+      summary: Criar uma nova prestacao
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createprestacao_servico"
+      responses:
+        "200":
+          description: Prestacao criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "500":
+          description: Erro ao criar prestacao
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+#--buscar prestacao por id
+  /prestacao_servico/get-by-id/{id}:
+    get:
+      tags:
+        - Prestacao *
+      summary: Buscar uma prestacao por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Prestacao encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "404":
+          description: Prestacao nao encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "500":
+          description: Erro ao buscar prestacao
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+#--atualizar prestacao por id
+  /prestacao_servico/update/{id}:
+    put:
+      tags:
+        - Prestacao *
+      summary: Atualizar uma prestacao
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateprestacao_servico"
+      responses:
+        "200":
+          description: Prestacao atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "500":
+          description: Erro ao atualizar prestacao
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+
+#--deletar prestacao por id
+  /prestacao_servico/delete/{id}:
+    delete:
+      tags:
+        - Prestacao *
+      summary: Deletar uma prestacao
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Prestacao deletada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "404":
+          description: Prestacao nao encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "500":
+          description: Erro ao deletar prestacao
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"

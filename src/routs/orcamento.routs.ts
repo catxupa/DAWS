@@ -4,7 +4,7 @@ import { orcamentoControler } from "../controler/orcamento.controler.js"
 
 const orcamentoRoute = {
     create: "/create",
-    getById: "/get-orcamento-by-id/:id",
+    getById: "/get-by-id/:id",
     getALL: "/",
     update: "/update/:id",
     delete: "/delete/:id"

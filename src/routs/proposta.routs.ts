@@ -4,7 +4,7 @@ import { propostaControler } from "../controler/proposta.controler.js"
 
 const propostaRoute = {
     create: "/create",
-    getById: "/get-proposta-by-id/:id",
+    getById: "/get-by-id/:id",
     getALL: "/",
     update: "/update/:id",
     delete: "/delete/:id"
