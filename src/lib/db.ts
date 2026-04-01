@@ -7,4 +7,4 @@ const db = mysql.createPool({
     database: "servidor_local",
 })
 
-export default db
+export default db 

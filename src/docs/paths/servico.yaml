@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/servicoResponseError"
 
 
   #criar servico
@@ -51,7 +51,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Responseerror"
+                $ref: "#/components/schemas/servicoResponseError"
 
 
   #buscar servico por id
@@ -82,7 +82,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Responseerror"
+                $ref: "#/components/schemas/servicoResponseError"
 
 
   #atualizar servico
@@ -118,13 +118,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/servicoResponseError"
         "404":
           description: Servico nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/servicoResponseError"
 
 
   #deletar servico
@@ -154,10 +154,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/servicoResponseError"
         "404":
           description: Servico nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/servicoResponseError"

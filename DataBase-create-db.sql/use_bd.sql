@@ -110,4 +110,6 @@ ADD COLUMN nif DECIMAL (10,0) AFTER minimo_desconto;
 
 
 
+
+
  

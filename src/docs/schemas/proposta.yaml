@@ -106,6 +106,27 @@
                     example: "1"
 
 
+        #schema para resposta de sucesso
+        PropostaResponseSuccess:
+            type: object
+            properties:
+                message:
+                    type: string
+                    example: "Proposta criada com sucesso"
+                data:
+                    $ref: "#/components/schemas/Proposta"
+
+        #schema para resposta de erro
+        PropostaResponseError:
+            type: object
+            properties:
+                message:
+                    type: string
+                    example: "Proposta nao encontrada"
+                data:
+                    $ref: "#/components/schemas/PropostaResponseError"
+
+
     
 
 

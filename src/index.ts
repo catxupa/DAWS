@@ -41,7 +41,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 
-// inicia o servidor na porta 3000
+// inicia o servidor na porta 8080
 app.listen(8080, () => {
     console.log("Servidor rodando em http://localhost:8080");
 });

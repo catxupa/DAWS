@@ -14,13 +14,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseSuccess"
+                                $ref: "#/components/schemas/orcamento"
                 "500":
                     description: Erro ao buscar orcamentos
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--criar orcamento
@@ -41,19 +41,19 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseSuccess"
+                                $ref: "#/components/schemas/orcamento"
                 "400":
                     description: Dados invalidos
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao criar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--buscar orcamento por id
@@ -75,19 +75,19 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseSuccess"
+                                $ref: "#/components/schemas/orcamento"
                 "404":
                     description: Orcamento nao encontrado
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao buscar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--atualizar orcamento por id
@@ -115,19 +115,19 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseSuccess"
+                                $ref: "#/components/schemas/orcamento"
                 "400":
                     description: Dados invalidos
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao atualizar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--deletar orcamento por id
@@ -149,16 +149,16 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseSuccess"
+                                $ref: "#/components/schemas/orcamento"
                 "404":
                     description: Orcamento nao encontrado
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao deletar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"

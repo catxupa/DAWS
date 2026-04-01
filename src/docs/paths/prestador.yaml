@@ -19,13 +19,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ResponseSuccess"
+                  $ref: "#/components/schemas/prestador"
         "404":
           description: Prestadores nao encontrados
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/prestadorResponseError"
 
 
   #criar prestador
@@ -47,13 +47,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseSucces"
+                $ref: "#/components/schemas/prestador"
         "400":
           description: Dados invalidos
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/prestadorResponseError"
 
 
   #buscar prestador por id
@@ -77,13 +77,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetPrestadorById"
+                $ref: "#/components/schemas/prestador"
         "404":
           description: Prestador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/prestadorResponseError"
 
 
   #atualizar prestador
@@ -113,19 +113,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UpdatePrestador"
+                $ref: "#/components/schemas/prestador"
         "400":
           description: Dados invalidos
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/prestadorResponseError"
         "404":
           description: Prestador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/prestadorResponseError"
 
 
   #deletar prestador
@@ -149,19 +149,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeletePrestador"
+                $ref: "#/components/schemas/prestador"
         "400":
           description: Dados invalidos
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/prestadorResponseError"
         "404":
           description: Prestador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError" 
+                $ref: "#/components/schemas/prestadorResponseError" 
 
 
           

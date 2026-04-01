@@ -1,1 +1,1 @@
-CREATE DATABASE Servidor_Local
+CREATE DATABASE Meu_projeto; 

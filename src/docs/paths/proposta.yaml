@@ -22,7 +22,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                    $ref: "#/components/schemas/ResponseError"            
+                                    $ref: "#/components/schemas/propostaResponseError"            
 
 
     #criar proposta
@@ -52,7 +52,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/propostaResponseError"
 
 
     #buscar proposta por id
@@ -79,7 +79,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/propostaResponseError"
 
 
 #atualizar proposta
@@ -112,7 +112,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/propostaResponseError"
 
 
 #deletar proposta
@@ -140,5 +140,5 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResponseError"
+                                $ref: "#/components/schemas/propostaResponseError"
     

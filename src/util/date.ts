@@ -5,7 +5,7 @@ export async function formatDate(date: string) {
 }
 
 
-//format date 
+//format date dd-mm-yyyy
 export function formatDateDDMMYYYY(date: string) {
     const [day, month, year] = date.split("-")
     return `${day}-${month}-${year}`

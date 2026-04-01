@@ -39,20 +39,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateUser" 
+              $ref: "#/components/schemas/CreateUser"
       responses:
         "200":
           description: Utilizador criado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseSuccess"
+                $ref: "#/components/schemas/UserResponseSuccess"
         "400":
           description: Dados invalidos
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/UserResponseError"
        
 
 
@@ -77,13 +77,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateUser"
+                $ref: "#/components/schemas/UserResponseSuccess"
         "404":
           description: Utilizador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/UserResponseError"
 
 
   #atualizar utilizador
@@ -113,19 +113,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UpdateUser"
+                $ref: "#/components/schemas/UserResponseSuccess"
         "400":
           description: Dados invalidos
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/UserResponseError"
         "404":
           description: Utilizador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/UserResponseError"
 
 
   #deletar utilizador

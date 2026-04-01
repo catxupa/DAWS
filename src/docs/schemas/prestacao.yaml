@@ -146,4 +146,25 @@ components:
                 example: "1"
 
 
+      #schema para resposta de sucesso
+    prestacaoResponseSuccess:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Prestacao criada com sucesso"
+          data:
+            $ref: "#/components/schemas/prestacao"
+
+      #schema para resposta de erro
+    prestacaoResponseError:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Prestacao nao encontrada"
+          data:
+            $ref: "#/components/schemas/PrestacaoResponseError"
+
+
 

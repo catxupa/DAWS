@@ -89,12 +89,12 @@ now(),
 now()
 );
 
-INSERT INTO tabela_utilizadores
+INSERT INTO tabela_prestacao_servicos
 VALUES(
-"8c7a484d-52ae-45ce-918c-c4db5ab70e73",
-"Patrick Andrade",
+"",
+"Patrick",
 "M002K",
-"2004-06-20",
+"2",
 "santos@gmail.com",
 "9837951",
 "Cabo Verde",
@@ -104,6 +104,8 @@ TRUE,
 now(),
 now()
 );
+
+
 
 
 

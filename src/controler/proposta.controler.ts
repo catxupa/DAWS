@@ -77,20 +77,28 @@ export const propostaControler = {
 
     // controlador para buscar proposta por id
     async getPropostaById(req: Request, res: Response) {
-        const id = req.params.id
-        const getPropostaByIdResponse = await propostaModel.getPropostaById(id as string)
-        if (!getPropostaByIdResponse) {
+        try {
+            const id = req.params.id
+            const getPropostaByIdResponse = await propostaModel.getPropostaById(id as string)
+            if (!getPropostaByIdResponse) {
+                return res.status(404).json({
+                    status: "error",
+                    message: "proposta nao encontrada",
+                    data: null
+                })
+            }
+            return res.status(200).json({
+                status: "success",
+                message: "proposta buscada com sucesso",
+                data: getPropostaByIdResponse
+            })
+        } catch (error) {
             return res.status(500).json({
                 status: "error",
                 message: "erro ao buscar proposta",
                 data: null
             })
         }
-        return res.status(200).json({
-            status: "success",
-            message: "proposta buscada com sucesso",
-            data: getPropostaByIdResponse
-        })
     },
 
     // controlador para buscar todas as propostas

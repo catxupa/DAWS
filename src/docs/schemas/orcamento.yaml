@@ -83,3 +83,24 @@ components:
             id: 
                 type: string
                 example: "1"
+
+
+    #schema para resposta de sucesso
+    orcamentoResponseSuccess:
+        type: object
+        properties:
+            message:
+                type: string
+                example: "Orcamento criado com sucesso"
+            data:
+                $ref: "#/components/schemas/Orcamento"
+
+    #schema para resposta de erro
+    orcamentoResponseError:
+        type: object
+        properties:
+            message:
+                type: string
+                example: "Orcamento nao encontrado"
+            data:
+                $ref: "#/components/schemas/OrcamentoResponseError"

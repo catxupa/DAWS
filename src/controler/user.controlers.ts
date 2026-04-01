@@ -28,11 +28,25 @@ export const userControlers = {
 
     //controler para adicionar novo user no bd !*  
     async novoutilizador(req: Request, res: Response) {
-        const utilizador = req.body as utilizadorType
+        try {
+            const utilizador = req.body as utilizadorType
 
-        console.log({ " utilizador index.ts": utilizador })
-        const novoUtilizadorResponse = await novoUtilizador(utilizador)
-        res.json(novoUtilizadorResponse)
+            const novoUtilizadorResponse = await novoUtilizador(utilizador)
+            res.json(novoUtilizadorResponse)
+
+            return res.status(200).json({
+                status: "sucess",
+                message: "Utilizador criado com sucesso",
+                data: novoUtilizadorResponse
+            })
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({
+                status: "erro",
+                message: "Erro interno no servidor",
+                data: null
+            })
+        }
     },
 
     //controler para fazer update de users !*

@@ -145,3 +145,24 @@ components:
           id: 
             type: string
             example: "1"
+
+
+      #schema para resposta de sucesso
+      PrestadorResponseSuccess:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Prestador criado com sucesso"
+          data:
+            $ref: "#/components/schemas/Prestador"
+
+      #schema para resposta de erro
+      PrestadorResponseError:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Prestador nao encontrado"
+          data:
+            $ref: "#/components/schemas/PrestadorResponseError"

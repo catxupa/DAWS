@@ -146,3 +146,24 @@ components:
         password:
           type: string
           example: "123456789"
+
+
+    #schema para resposta de sucesso
+    UserResponseSuccess:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Utilizador criado com sucesso"
+        data:
+          $ref: "#/components/schemas/User"
+
+    #schema para resposta de erro
+    UserResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Utilizador nao encontrado"
+        data:
+          $ref: "#/components/schemas/UserResponseError"

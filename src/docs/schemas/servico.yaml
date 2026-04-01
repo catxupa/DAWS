@@ -74,3 +74,33 @@ components:
           type: boolean
           example: true
 
+
+          #schema para deletar servico
+    DeleteServico:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+
+
+    #schema para resposta de sucesso
+    servicoResponseSuccess:
+        type: object
+        properties:
+            message:
+                type: string
+                example: "Servico criado com sucesso"
+            data:
+                $ref: "#/components/schemas/Servico"
+
+    #schema para resposta de erro
+    servicoResponseError:
+        type: object
+        properties:
+            message:
+                type: string
+                example: "Servico nao encontrado"
+            data:
+                $ref: "#/components/schemas/ServicoResponseError"
+
