@@ -10,7 +10,9 @@ const userRoute = {
     getALL: "/",
     update: "/update/:id",
     delete: "/delete/:id",
-    login: "/login"
+    login: "/login",
+    updatePassword: "/update-password/:id",
+    resetPassword: "/reset-password/:id"
 }
 
 const rOuter = Router()
@@ -32,6 +34,12 @@ rOuter.delete(userRoute.delete, userControlers.deleteuser)
 
 // rota para login
 rOuter.post(userRoute.login, userControlers.Login)
+
+// rota para atualizar password
+rOuter.put(userRoute.updatePassword, authMiddelware, userControlers.updatePassword)
+
+// rota para resetar password
+rOuter.put(userRoute.resetPassword, authMiddelware, userControlers.resetPassword)
 
 
 export { rOuter }

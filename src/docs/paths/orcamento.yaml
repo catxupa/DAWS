@@ -162,3 +162,77 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/orcamentoResponseError"
+
+
+    #--calcular orcamento por id
+    /orcamento/calcular/{id}:
+        put:
+            tags:
+                - Orcamento *
+            summary: Calcular um orcamento por id
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                    example: "1"
+ #           requestBody:
+ #               required: true
+ #               content:
+ #                   application/json:
+ #                       schema:
+ #                           $ref: "#/components/schemas/calcularorcamento"
+            responses:
+                "200":
+                    description: Orcamento calculado com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/orcamento"
+                "404":
+                    description: Orcamento nao encontrado
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/orcamentoResponseError"
+                "500":
+                    description: Erro ao calcular orcamento
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/orcamentoResponseError"
+
+
+    #--buscar orcamento por id
+    /orcamento/get-orcamento-por-id/{id}:
+        get:
+            tags:
+                - Orcamento *
+            summary: Buscar um orcamento por id
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                    example: "10"
+            responses:
+                "200":
+                    description: Orcamento encontrado com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/orcamento"
+                "404":
+                    description: Orcamento nao encontrado
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/orcamentoResponseError"
+                "500":
+                    description: Erro ao buscar orcamento
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/orcamentoResponseError"

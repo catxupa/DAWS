@@ -2,6 +2,10 @@ import db from "../lib/db.js"
 import { formatDateDDMMYYYY } from "../util/date.js"
 import { hashpassword } from "../util/passwor.js"
 import type { utilizadorType } from "../util/types.js"
+import bcrypt from "bcrypt";
+import connection from "../lib/db.js";
+import type { RowDataPacket } from "mysql2";
+import type { Request, Response } from "express";
 
 export const userModel = {
     //funcao para selecionar todos os users no bd !*  
@@ -16,12 +20,12 @@ export const userModel = {
     },
 
     //funcao para selecionar user por id no bd !*  
-    async getUserById(id: string) {
+    async getUserById(id: string): Promise<utilizadorType | null> {
         const [rows] = await db.execute(
             "SELECT * FROM tabela_utilizadores WHERE tabela_utilizadores.id = ?", [id])
         if (Array.isArray(rows) && rows.length === 0)
             return null
-        return Array.isArray(rows) ? rows[0] : null
+        return Array.isArray(rows) ? rows[0] as utilizadorType : null
     },
 
     //funcao para criar novo user no bd !*  
@@ -120,5 +124,41 @@ export const userModel = {
             return null
         }
     },
+
+    //funcao para atualizar password
+    async updatePassword(id: string, newPassword: string) {
+        try {
+            const query = "UPDATE tabela_utilizadores SET password=?, updated_at=? WHERE id=?";
+
+            const hashedPassword = await hashpassword(newPassword);
+            const values = [hashedPassword,
+                new Date(),
+                id]
+            //verificar se o user existe
+            const [rows] = await db.execute(query, values);
+            return rows;
+        } catch (error) {
+            console.error("Erro no update da password:", error);
+            return null;
+        }
+    },
+
+    // funcao para fazer reset do password
+    async resetPassword(id: string, newPassword: string) {
+        try {
+            const query = "UPDATE tabela_utilizadores SET password=?, updated_at=? WHERE id=?";
+
+            const hashedPassword = await hashpassword(newPassword);
+
+            const values = [hashedPassword,
+                new Date(),
+                id]
+            const [rows] = await db.execute(query, values);
+            return rows;
+        } catch (error) {
+            console.error("Erro ao resetar password:", error);
+            return null;
+        }
+    }
 
 } 

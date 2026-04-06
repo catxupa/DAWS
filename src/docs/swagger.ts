@@ -31,6 +31,8 @@ const options: swaggerJsdoc.Options = {
                 bearerAuth: [],
             },
         ],
+
+         
     },
     //rotas 
     apis: [

@@ -1,3 +1,4 @@
+import db from "../lib/db.js"
 import { propostaModel } from "../models/proposta.models.js"
 import type { NovapropostaType } from "../util/types.js"
 import type { Request, Response } from "express"
@@ -116,5 +117,60 @@ export const propostaControler = {
             message: "proposta buscada com sucesso",
             data: getAllPropostasResponse
         })
+    },
+
+    // controlador para aceitar proposta
+    async aceitarProposta(req: Request, res: Response) {
+        const propostaId = Number(req.params.id); // ID da proposta escolhida
+        let connection;
+        try {
+            connection = await db.getConnection();
+            await connection.beginTransaction();
+
+            // 1. Descobrir a qual prestação essa proposta pertence
+            const [resultado] = await connection.query(
+                "SELECT id_prestacao FROM tabela_proposta WHERE id = ?",
+                [propostaId]
+            );
+
+            if (!Array.isArray(resultado) || resultado.length === 0) {
+                await connection.rollback();
+                return res.status(404).json({
+                    status: "error",
+                    message: "Proposta não encontrada",
+                    data: null
+                });
+            }
+
+            const idPrestacao = await Number((resultado as any)[0].id_prestacao);
+
+            // 2. Marcar a proposta escolhida como "Aceite"
+            const updatePropostaResponse = await connection.execute(
+                "UPDATE tabela_proposta SET estado = 'aceite' WHERE id = ?",
+                [propostaId]
+            );
+
+            // 3. Rejeitar todas as outras propostas ligadas à mesma prestação
+            const updatePropostaResponse2 = await connection.execute(
+                "UPDATE tabela_proposta SET estado = 'recusado' WHERE id_prestacao = ? AND id != ?",
+                [idPrestacao, propostaId]
+            );
+
+            await connection.commit();
+            res.status(200).json({
+                status: "success",
+                message: "Proposta aceita com sucesso",
+                data: null
+            });
+        } catch (error: any) {
+            if (connection) await connection.rollback();
+            res.status(500).json({
+                status: "error",
+                message: "erro ao aceitar proposta",
+                data: null
+            });
+        } finally {
+            if (connection) connection.release();
+        }
     }
 }

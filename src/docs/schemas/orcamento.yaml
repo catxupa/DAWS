@@ -85,6 +85,24 @@ components:
                 example: "1"
 
 
+    #schema para calcular orcamento
+    calcularorcamento:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "1"
+
+
+    #schema para buscar orcamento por id
+    getorcamento_por_id:
+        type: object
+        properties:
+            id: 
+                type: string
+                example: "10"
+
+
     #schema para resposta de sucesso
     orcamentoResponseSuccess:
         type: object

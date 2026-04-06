@@ -1,9 +1,14 @@
+import { createConnection } from "node:net";
 import { userModel } from "../models/user.models.js";
 import { novoUtilizador, updateuser, deleteuser } from "../user.js";
-import { comparepassword } from "../util/passwor.js";
+import { comparepassword, hashpassword } from "../util/passwor.js";
 import type { utilizadorType } from "../util/types.js";
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import connection from "../lib/db.js";
+import type { RowDataPacket } from "mysql2";
+
 
 //controler para selecionar todos os users no bd !*  
 export const userControlers = {
@@ -51,23 +56,31 @@ export const userControlers = {
 
     //controler para fazer update de users !*
     async updateduser(req: Request, res: Response) {
-        const id = req.params.id
+        const id = req.params.id as string
         const updatedUser = req.body as utilizadorType
 
-        if (!id) {
+        if (id === null) {
             return res.status(400).json({
                 status: "erro",
                 message: "id obrigatorio",
                 data: null
             })
         }
-
+ 
         const updatedUserResponse = await updateuser(id as string, updatedUser)
 
-        if (!updatedUserResponse) {
+        if (updatedUserResponse === null) {
             return res.status(500).json({
                 status: "erro",
-                message: "Erro ao atualizar utilizador",
+                message: "Erro ao atualisar utilizador",
+                data: null
+            })
+        }
+
+        if (updatedUserResponse === null) {
+            return res.status(403).json({
+                status: "erro",
+                message: "Utilizador nao autorizado",
                 data: null
             })
         }
@@ -128,7 +141,7 @@ export const userControlers = {
         })
     },
 
-    // funcao para login
+    // controler para login
     async Login(req: Request, res: Response) {
         try {
             const { email, password } = req.body
@@ -182,7 +195,96 @@ export const userControlers = {
                 data: null
             })
         }
-    }
+    },
+
+    // controler para atualizar password
+    async updatePassword(req: Request, res: Response) {
+        //validar os dados recebidos
+        try {
+            const userId = req.params.id;
+            // const hash = hashpassword(userId as string);
+            const { oldPassword, newPassword } = req.body;
+
+            if (!oldPassword || !newPassword) {
+                return res.status(400).json({
+                    message: "dados de servicos invalidos"
+                });
+            }
+            //verificar se o user existe
+            const user = await userModel.getUserById(userId as any);
+
+            if (!user) {
+                return res.status(404).json({
+                    message: "Utilizador nao encontrado"
+                });
+            }
+            //verificar se a senha antiga esta correta
+            const isMatch = await comparepassword(oldPassword, user.password as string);
+
+            if (!isMatch) {
+                return res.status(401).json({
+                    message: "A senha antiga está incorreta"
+                });
+            }
+            //atualizar a senha
+            const updateResponse = await userModel.updatePassword(userId as string, newPassword);
+
+            if (!updateResponse) {
+                return res.status(400).json({
+                    message: "Erro ao atualizar a senha"
+                });
+            }
+            //retornar a resposta
+            return res.status(200).json({
+                message: "Senha atualizada com sucesso"
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                message: "Erro no servidor"
+            });
+        }
+    },
+
+    //controler para resetar a password
+    async resetPassword(req: Request, res: Response) {
+        try {
+            const userId = req.params.id;
+            const { newPassword } = req.body;
+
+            if (!newPassword) {
+                return res.status(400).json({
+                    message: "nova password invalida"
+                });
+            }
+            const user = await userModel.getUserById(userId as any);
+
+            if (!user) {
+                return res.status(404).json({
+                    message: "Utilizador nao encontrado"
+                });
+            }
+            //resetar a senha
+            const updateResponse = await userModel.resetPassword(userId as string, newPassword);
+
+            if (!updateResponse) {
+                return res.status(400).json({
+                    message: "Erro ao resetar a password"
+                });
+            }
+            //retornar a resposta
+            return res.status(200).json({
+                message: "password resetada com sucesso"
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                message: "Erro no servidor"
+            });
+        }
+    },
+
+
 }
 
 

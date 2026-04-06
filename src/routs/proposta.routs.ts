@@ -7,7 +7,8 @@ const propostaRoute = {
     getById: "/get-by-id/:id",
     getALL: "/",
     update: "/update/:id",
-    delete: "/delete/:id"
+    delete: "/delete/:id",
+    aceitar: "/aceitar/:id"
 }
 
 const ruterss = Router()
@@ -18,5 +19,6 @@ ruterss.get(propostaRoute.getById, propostaControler.getPropostaById)
 ruterss.get(propostaRoute.getALL, propostaControler.getAllPropostas)
 ruterss.put(propostaRoute.update, propostaControler.updateProposta)
 ruterss.delete(propostaRoute.delete, propostaControler.deleteProposta)
+ruterss.put(propostaRoute.aceitar, propostaControler.aceitarProposta)
 
 export { ruterss }

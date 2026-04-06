@@ -147,6 +147,25 @@ components:
           type: string
           example: "123456789"
 
+    #schema para atualizar password
+    UpdatePassword:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+          example: "123456789"
+        newPassword:
+          type: string
+          example: "123456788"
+
+    #schema para resetar password
+    ResetPassword:
+      type: object
+      properties:
+        newPassword:
+          type: string
+          example: "123456788"
+
 
     #schema para resposta de sucesso
     UserResponseSuccess:

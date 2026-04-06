@@ -4,8 +4,8 @@ import type { NovapropostaType } from "../util/types.js"
 
 // fuuncoes para criar proposta
 export const propostaModel = {
-    async createProposta(novaProposta:NovapropostaType) {
-        
+    async createProposta(novaProposta: NovapropostaType) {
+
         try {
             const row = await db.execute(`INSERT INTO tabela_proposta Values (?,?,?,?,?,?,?,?)`,
                 [
@@ -19,7 +19,7 @@ export const propostaModel = {
                     new Date()
                 ])
             if (!row) return null
-            return row [0]
+            return row[0]
         } catch (error) {
             console.log({ "error": error })
             return null
@@ -27,9 +27,9 @@ export const propostaModel = {
     },
 
     // funcao atualizar proposta
-    async updateProposta(id:string, updatedProposta:NovapropostaType) {
+    async updateProposta(id: string, updatedProposta: NovapropostaType) {
         try {
-            const row = await db.execute(`UPDATE tabela_proposta SET id_prestacao = ?, preco_hora = ?, hora_estimadas = ?, estado = ?, enabled = ?, created_at = ?, update_at = ? WHERE id = ?`, 
+            const row = await db.execute(`UPDATE tabela_proposta SET id_prestacao = ?, preco_hora = ?, hora_estimadas = ?, estado = ?, enabled = ?, created_at = ?, update_at = ? WHERE id = ?`,
                 [
                     updatedProposta.id_prestacao,
                     updatedProposta.preco_hora,
@@ -49,7 +49,7 @@ export const propostaModel = {
     },
 
     // funcao apagar proposta
-    async deleteProposta(id:string) {
+    async deleteProposta(id: string) {
         try {
             const row = await db.execute(`DELETE FROM tabela_proposta WHERE id = ?`, [id])
             if (!row) return null
@@ -61,7 +61,7 @@ export const propostaModel = {
     },
 
     // funcao buscar proposta por id
-    async getPropostaById(id:string) {
+    async getPropostaById(id: string) {
         try {
             const row = await db.execute(`SELECT * FROM tabela_proposta WHERE id = ?`, [id])
             if (!row) return null
@@ -77,7 +77,19 @@ export const propostaModel = {
         try {
             const row = await db.execute(`SELECT * FROM tabela_proposta`)
             if (!row) return null
-            return row [0]
+            return row[0]
+        } catch (error) {
+            console.log({ "error": error })
+            return null
+        }
+    },
+
+    //funcao para aceitar proposta
+    async aceitarProposta(id: string) {
+        try {
+            const row = await db.execute(`UPDATE tabela_proposta SET estado = "ACEITE" WHERE id = ?`, [id])
+            if (!row) return null
+            return row[0]
         } catch (error) {
             console.log({ "error": error })
             return null

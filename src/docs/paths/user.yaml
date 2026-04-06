@@ -199,6 +199,90 @@ paths:
                 $ref: "#/components/schemas/UserResponseError"
 
 
+  #atualizar password
+  /user/update-password/{id}:
+    put:
+      tags:
+        - User *
+      summary: Atualizar password
+      description: Atualiza a password do utilizador
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do utilizador a ser atualizado
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePassword"
+      responses:
+        "200":
+          description: Password atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseSuccess"
+        "400":
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseError"
+        "404":
+          description: Utilizador nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseError"
+
+
+  #resetar password
+  /user/reset-password/{id}:
+    put:
+      tags:
+        - User *
+      summary: Resetar password
+      description: Resetar password do utilizador
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id do utilizador a ser resetado
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetPassword"
+      responses:
+        "200":
+          description: Password resetada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseSuccess"
+        "400":
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseError"
+        "404":
+          description: Utilizador nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseError"
+
+
 
     
 
