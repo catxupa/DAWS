@@ -25,7 +25,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestadorResponseError"
+                $ref: "#/components/schemas/PrestadorResponseError"
 
 
   #criar prestador
@@ -53,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestadorResponseError"
+                $ref: "#/components/schemas/PrestadorResponseError"
 
 
   #buscar prestador por id
@@ -83,7 +83,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestadorResponseError"
+                $ref: "#/components/schemas/PrestadorResponseError"
 
 
   #atualizar prestador
@@ -119,13 +119,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestadorResponseError"
+                $ref: "#/components/schemas/PrestadorResponseError"
         "404":
           description: Prestador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestadorResponseError"
+                $ref: "#/components/schemas/PrestadorResponseError"
 
 
   #deletar prestador
@@ -155,13 +155,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestadorResponseError"
+                $ref: "#/components/schemas/PrestadorResponseError"
         "404":
           description: Prestador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestadorResponseError" 
+                $ref: "#/components/schemas/PrestadorResponseError" 
 
 
           

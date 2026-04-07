@@ -22,7 +22,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                    $ref: "#/components/schemas/propostaResponseError"            
+                                    $ref: "#/components/schemas/PropostaResponseError"            
 
 
     #criar proposta
@@ -52,7 +52,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/propostaResponseError"
+                                $ref: "#/components/schemas/PropostaResponseError"
 
 
     #buscar proposta por id
@@ -79,7 +79,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/propostaResponseError"
+                                $ref: "#/components/schemas/PropostaResponseError"
 
 
 #atualizar proposta
@@ -112,7 +112,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/propostaResponseError"
+                                $ref: "#/components/schemas/PropostaResponseError"
 
 
 #deletar proposta
@@ -140,7 +140,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/propostaResponseError"
+                                $ref: "#/components/schemas/PropostaResponseError"
 
 
 #aceitar proposta
@@ -155,12 +155,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/Aceitarproposta"
             responses:
                 "200":
                     description: Proposta aceita com sucesso
@@ -173,5 +167,5 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/propostaResponseError"
+                                $ref: "#/components/schemas/PropostaResponseError"
     

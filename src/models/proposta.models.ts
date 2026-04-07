@@ -12,7 +12,7 @@ export const propostaModel = {
                     null,
                     novaProposta.id_prestacao,
                     novaProposta.preco_hora,
-                    novaProposta.hora_estimadas,
+                    novaProposta.hora_estimada,
                     novaProposta.estado,
                     novaProposta.enabled,
                     new Date(),
@@ -33,7 +33,7 @@ export const propostaModel = {
                 [
                     updatedProposta.id_prestacao,
                     updatedProposta.preco_hora,
-                    updatedProposta.hora_estimadas,
+                    updatedProposta.hora_estimada,
                     updatedProposta.estado,
                     updatedProposta.enabled,
                     new Date(),

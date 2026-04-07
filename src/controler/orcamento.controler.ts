@@ -182,7 +182,6 @@ export const orcamentoControler = {
             console.log(taxa_urgencia, minimo_desconto, percentagem_desconto, preco_hora, hora_estimada);
             // Calcular total
             let total: number = parseInt(preco_hora) * parseInt(hora_estimada);
-            console.log("total", total)
             // Se tiver taxa de urgência associada (garantindo conversão se vier 20 em vez de 0.20)
             if (taxa_urgencia) {
                 const multiplicadorUrgencia = taxa_urgencia > 1 ? taxa_urgencia / 100 : taxa_urgencia;
@@ -203,8 +202,6 @@ export const orcamentoControler = {
             }
 
             //Atualizar orçamento
-            console.log("total", total, idOrcamento)
-
             await db.execute(
                 `UPDATE tabela_orcamento SET total = ?, updated_at = ? WHERE id = ?`,
                 [total, new Date(), idOrcamento]
@@ -237,8 +234,6 @@ export const orcamentoControler = {
             const preco_hora_s = prestacao_s?.preco_hora
             const hora_estimada_s = prestacao_s?.hora_estimada
 
-            console.log("preco_hora_s", preco_hora_s)
-            console.log("hora_estimada_s", hora_estimada_s)
             //verificar se existe prestacao de servico
             if (!Array.isArray(prestacoes) || prestacoes.length === 0) {
                 return res.status(404).json({
@@ -265,8 +260,6 @@ export const orcamentoControler = {
             console.log("estado_p", estado_p)
 
 
-
-
             if (!Array.isArray(propostas) || propostas.length === 0) {
                 return res.status(404).json({
                     success: false,
@@ -288,27 +281,10 @@ export const orcamentoControler = {
                 }
             }
 
-
-
-
-                const taxaUrgencia = parseFloat(prestador?.taxa_urgencia) || 0;
-                const minimoDesconto = parseFloat(prestador?.minimo_desconto) || 0;
-                const percentagemDesconto = parseFloat(prestador?.percentagem_desconto) || 0;
-                const precoHora = parseFloat(prestador?.preco_hora) || 0;
-                console.log("taxaUrgencia", taxaUrgencia)
-                console.log("minimoDesconto", minimoDesconto)
-                console.log("percentagemDesconto", percentagemDesconto)
-                console.log("precoHora", precoHora)
-            
-            
-
-
-
-
-
-
-
-
+            const taxaUrgencia = parseFloat(prestador?.taxa_urgencia) || 0;
+            const minimoDesconto = parseFloat(prestador?.minimo_desconto) || 0;
+            const percentagemDesconto = parseFloat(prestador?.percentagem_desconto) || 0;
+            const precoHora = parseFloat(prestador?.preco_hora) || 0;
 
             return res.status(200).json({
                 success: true,
@@ -328,5 +304,5 @@ export const orcamentoControler = {
                 data: null
             });
         }
-    },
+    }
 }
