@@ -1,35 +1,41 @@
 import db from "../lib/db.js"
 import { propostaModel } from "../models/proposta.models.js"
-import type { NovapropostaType } from "../util/types.js"
-import type { Request, Response } from "express"
+import type { NovapropostaType, ResponseType } from "../util/types.js"
+import { response, type Request, type Response } from "express"
 
 
 // controlador para criar proposta
 export const propostaControler = {
     async createProposta(req: Request, res: Response) {
+
         const novaProposta: NovapropostaType = req.body
-        console.log("proposta controler", novaProposta)
+
         if (!novaProposta) {
-            return res.status(400).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "dados invalidos",
                 data: null
-            })
+
+            }
+            return res.status(400).json(response)
         }
+
         const createPropostaResponse = await propostaModel.createProposta(novaProposta)
-        console.log("proposta123", createPropostaResponse)
+
         if (!createPropostaResponse) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao criar proposta",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<NovapropostaType> = {
             status: "success",
             message: "proposta criada com sucesso",
             data: createPropostaResponse
-        })
+        }
+        return res.status(200).json(response)
     },
 
     // controlador para atualizar proposta
@@ -37,43 +43,55 @@ export const propostaControler = {
         const id = req.params.id
         const updatedProposta: NovapropostaType = req.body
         if (!updatedProposta) {
-            return res.status(400).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "dados invalidos",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
+
         const updatePropostaResponse = await propostaModel.updateProposta(id as string, updatedProposta)
+
         if (!updatePropostaResponse) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao atualizar prestador",
                 data: null
-            })
+
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+
+        const response: ResponseType<NovapropostaType> = {
             status: "success",
             message: "proposta atualizada com sucesso",
             data: updatePropostaResponse
-        })
+
+        }
+        return res.status(200).json(response)
     },
+
 
     // controlador para apagar proposta
     async deleteProposta(req: Request, res: Response) {
         const id = req.params.id
         const deletePropostaResponse = await propostaModel.deleteProposta(id as string)
+
         if (!deletePropostaResponse) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao apagar proposta",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<null> = {
             status: "success",
             message: "proposta apagada com sucesso",
-            data: deletePropostaResponse
-        })
+            data: null
+        }
+        return res.status(200).json(response)
     },
 
     // controlador para buscar proposta por id
@@ -82,23 +100,29 @@ export const propostaControler = {
             const id = req.params.id
             const getPropostaByIdResponse = await propostaModel.getPropostaById(id as string)
             if (!getPropostaByIdResponse) {
-                return res.status(404).json({
+
+                const response: ResponseType<null> = {
                     status: "error",
                     message: "proposta nao encontrada",
                     data: null
-                })
+                }
+                return res.status(404).json(response)
             }
-            return res.status(200).json({
+            const response: ResponseType<NovapropostaType> = {
                 status: "success",
                 message: "proposta buscada com sucesso",
                 data: getPropostaByIdResponse
-            })
-        } catch (error) {
-            return res.status(500).json({
+            }
+            return res.status(200).json(response)
+        }
+
+        catch (error) {
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao buscar proposta",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
     },
 
@@ -106,18 +130,21 @@ export const propostaControler = {
     async getAllPropostas(req: Request, res: Response) {
         const getAllPropostasResponse = await propostaModel.getAllPropostas()
         if (!getAllPropostasResponse) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao buscar proposta",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<NovapropostaType> = {
             status: "success",
             message: "proposta buscada com sucesso",
             data: getAllPropostasResponse
-        })
+        }
+        return res.status(200).json(response)
     },
+
 
     // controlador para aceitar proposta
     async aceitarProposta(req: Request, res: Response) {
@@ -135,11 +162,12 @@ export const propostaControler = {
 
             if (!Array.isArray(resultado) || resultado.length === 0) {
                 await connection.rollback();
-                return res.status(404).json({
+                const response: ResponseType<null> = {
                     status: "error",
                     message: "Proposta não encontrada",
                     data: null
-                });
+                }
+                return res.status(404).json(response)
             }
 
             const idPrestacao = await Number((resultado as any)[0].id_prestacao);
@@ -157,19 +185,23 @@ export const propostaControler = {
             );
 
             await connection.commit();
-            res.status(200).json({
+            const response: ResponseType<NovapropostaType> = {
                 status: "success",
                 message: "Proposta aceita com sucesso",
                 data: null
-            });
-        } catch (error: any) {
+            }
+            return res.json(200).json(response)
+        }
+        catch (error: any) {
             if (connection) await connection.rollback();
-            res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao aceitar proposta",
                 data: null
-            });
-        } finally {
+            }
+            return res.status(500).json(response)
+        }
+        finally {
             if (connection) connection.release();
         }
     }

@@ -59,112 +59,132 @@ components:
                     example: "2026-03-25"
 
 
-    #schema para criar prestacao
-    createprestacao_servico:
-        type: object
-        properties:
-            disignacao: 
-                type: string
-                example: "Eletricista"
-            subtotal: 
-                type: number
-                example: 10
-            hora_estimadas: 
-                type: number
-                example: 10
-            id_prestador: 
-                type: string
-                example: "1"
-            id_servico: 
-                type: string
-                example: "1"
-            preco_hora: 
-                type: number
-                example: 10
-            estado: 
-                type: string
-                example: "pendente"
-            id_orcamento: 
-                type: string
-                example: "1"
-            enabled: 
-                type: boolean
-                example: true
+        #schema para criar prestacao
+        createprestacao_servico:
+            type: object
+            properties:
+                disignacao: 
+                    type: string
+                    example: "Eletricista"
+                subtotal: 
+                    type: number
+                    example: 10
+                hora_estimadas: 
+                    type: number
+                    example: 10
+                id_prestador: 
+                    type: string
+                    example: "1"
+                id_servico: 
+                    type: string
+                    example: "1"
+                preco_hora: 
+                    type: number
+                    example: 10
+                estado: 
+                    type: string
+                    example: "pendente"
+                id_orcamento: 
+                    type: string
+                    example: "1"
+                enabled: 
+                    type: boolean
+                    example: true
 
 
-    #schema para atualizar prestacao
-    updateprestacao_servico:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "1"
-            disignacao: 
-                type: string
-                example: "Eletricista"
-            subtotal: 
-                type: number
-                example: 10
-            hora_estimadas: 
-                type: number
-                example: 10
-            id_prestador: 
-                type: string
-                example: "1"
-            id_servico: 
-                type: string
-                example: "1"
-            preco_hora: 
-                type: number
-                example: 10
-            estado: 
-                type: string
-                example: "pendente"
-            id_orcamento: 
-                type: string
-                example: "1"
-            enabled: 
-                type: boolean
-                example: true
+        #schema para atualizar prestacao
+        updateprestacao_servico:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+                disignacao: 
+                    type: string
+                    example: "Eletricista"
+                subtotal: 
+                    type: number
+                    example: 10
+                hora_estimadas: 
+                    type: number
+                    example: 10
+                id_prestador: 
+                    type: string
+                    example: "1"
+                id_servico: 
+                    type: string
+                    example: "1"
+                preco_hora: 
+                    type: number
+                    example: 10
+                estado: 
+                    type: string
+                    example: "pendente"
+                id_orcamento: 
+                    type: string
+                    example: "1"
+                enabled: 
+                    type: boolean
+                    example: true
 
 
-    #schema para buscar prestacao por id
-    getprestacao_servico_by_id:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "1"
+        #schema para buscar prestacao por id
+        getprestacao_servico_by_id:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
 
 
-    #schema para deletar prestacao
-    deleteprestacao_servico:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "1"
+        #schema para deletar prestacao
+        deleteprestacao_servico:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
 
 
-      #schema para resposta de sucesso
-    prestacaoResponseSuccess:
-        type: object
-        properties:
-          message:
-            type: string
-            example: "Prestacao criada com sucesso"
-          data:
-            $ref: "#/components/schemas/prestacao"
+        #schema para buscar prestacao detalhada
+        getprestacao_servico_detalhada:
+            type: object
+            properties:
+                limit: 
+                    type: number
+                    example: 10
+                offset: 
+                    type: number
+                    example: 0
 
-      #schema para resposta de erro
-    prestacaoResponseError:
-        type: object
-        properties:
-          message:
-            type: string
-            example: "Prestacao nao encontrada"
-          data:
-            $ref: "#/components/schemas/PrestacaoResponseError"
+        #schema para buscar prestacao detalhada por categoria
+        getprestacaocategoria:
+            type: object
+            properties:
+                categoria: 
+                    type: string
+                    example: "Eletricista"
+
+
+        #schema para resposta de sucesso
+        prestacaoResponseSuccess:
+            type: object
+            properties:
+                message:
+                    type: string
+                    example: "Prestacao criada com sucesso"
+                data:
+                    $ref: "#/components/schemas/prestacao"
+
+        #schema para resposta de erro
+        prestacaoResponseError:
+            type: object
+            properties:
+                message:
+                    type: string
+                    example: "Prestacao nao encontrada"
+                data:
+                    $ref: "#/components/schemas/prestacaoResponseError"
 
 
 

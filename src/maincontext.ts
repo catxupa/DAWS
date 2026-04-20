@@ -22,10 +22,14 @@ let total: number = 10;
 
 let variavel: string = "variavel";
 
+
+
 desconto === taxaUrgencia && desconto > taxaUrgencia ?
 
     taxaUrgencia += desconto : taxaUrgencia -= desconto;
 
 total = (horasTrabalhadas + precoHora) + taxaUrgencia - desconto; 
+
+
 
 

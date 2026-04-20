@@ -20,7 +20,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--criar orcamento
@@ -47,13 +47,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao criar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--buscar orcamento por id
@@ -83,7 +83,7 @@ paths:
                             example:
                                 message: "Orcamento nao encontrado"
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao buscar orcamento
                     content:
@@ -91,7 +91,7 @@ paths:
                             example:
                                 message: "Erro ao buscar orcamento"
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--atualizar orcamento por id
@@ -125,13 +125,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao atualizar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--deletar orcamento por id
@@ -159,13 +159,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao deletar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--calcular orcamento por id
@@ -193,13 +193,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao calcular orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
 
 
     #--buscar orcamento por id
@@ -227,10 +227,10 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"
                 "500":
                     description: Erro ao buscar orcamento
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/OrcamentoResponseError"
+                                $ref: "#/components/schemas/orcamentoResponseError"

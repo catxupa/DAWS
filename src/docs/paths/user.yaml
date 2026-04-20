@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/UserResponseError"
 
 
   #criar utilizador
@@ -77,7 +77,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserResponseSuccess"
+                $ref: "#/components/schemas/User"
         "404":
           description: Utilizador nao encontrado
           content:
@@ -149,19 +149,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeleteUser"
+                $ref: "#/components/schemas/User"
         "400":
           description: Dados invalidos
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/UserResponseError"
         "404":
           description: Utilizador nao encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/UserResponseError"
 
 
   #login
@@ -226,7 +226,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserResponseSuccess"
+                $ref: "#/components/schemas/User"
         "400":
           description: Dados invalidos
           content:

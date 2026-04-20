@@ -34,91 +34,91 @@ components:
                     example: "2026-03-25"
 
 
-    #schema para criar orcamento
-    createorcamento:
-        type: object
-        properties:
-            total: 
-                type: number
-                example: 10
-            id_utilizador: 
-                type: string
-                example: "1"
-            enabled: 
-                type: boolean
+        #schema para criar orcamento
+        createorcamento:
+            type: object
+            properties:
+                total: 
+                    type: number
+                    example: 10
+                id_utilizador: 
+                    type: string
+                    example: "1"
+                enabled: 
+                    type: boolean
                 example: true
 
 
-    #schema para atualizar orcamento
-    updateorcamento:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "1"
-            total: 
-                type: number
-                example: 10
-            id_utilizador: 
-                type: string
-                example: "1"
-            enabled: 
-                type: boolean
-                example: true
+        #schema para atualizar orcamento
+        updateorcamento:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
+                total: 
+                    type: number
+                    example: 10
+                id_utilizador: 
+                    type: string
+                    example: "1"
+                enabled: 
+                    type: boolean
+                    example: true
 
 
-    #schema para buscar orcamento por id
-    getorcamento_by_id:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "1"
+        #schema para buscar orcamento por id
+        getorcamento_by_id:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
 
 
-    #schema para deletar orcamento
-    deleteorcamento:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "1"
+        #schema para deletar orcamento
+        deleteorcamento:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
 
 
-    #schema para calcular orcamento
-    calcularorcamento:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "1"
+        #schema para calcular orcamento
+        calcularorcamento:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "1"
 
 
-    #schema para buscar orcamento por id
-    getorcamento_por_id:
-        type: object
-        properties:
-            id: 
-                type: string
-                example: "10"
+        #schema para buscar orcamento por id
+        getorcamento_por_id:
+            type: object
+            properties:
+                id: 
+                    type: string
+                    example: "10"
 
 
-    #schema para resposta de sucesso
-    orcamentoResponseSuccess:
-        type: object
-        properties:
-            message:
-                type: string
-                example: "Orcamento criado com sucesso"
-            data:
-                $ref: "#/components/schemas/Orcamento"
+        #schema para resposta de sucesso
+        orcamentoResponseSuccess:
+            type: object
+            properties:
+                message:
+                    type: string
+                    example: "Orcamento criado com sucesso"
+                data:
+                    $ref: "#/components/schemas/orcamento"
 
-    #schema para resposta de erro
-    orcamentoResponseError:
-        type: object
-        properties:
-            message:
-                type: string
-                example: "Orcamento nao encontrado"
-            data:
-                $ref: "#/components/schemas/OrcamentoResponseError"
+        #schema para resposta de erro
+        orcamentoResponseError:
+            type: object
+            properties:
+                message:
+                    type: string
+                    example: "Orcamento nao encontrado"
+                data:
+                    $ref: "#/components/schemas/orcamentoResponseError"

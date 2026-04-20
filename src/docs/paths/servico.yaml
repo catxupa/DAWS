@@ -161,3 +161,40 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/servicoResponseError"
+
+
+  #buscar servico detalhado
+  "/Servico/get-servico-detalhado":
+    get:
+      summary: listar todos os servicos detalhados
+      tags:
+        - Service *
+      description: Retorna todos os servicos detalhados disponiveis
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: limite de servicos a serem retornados
+          schema:
+            type: integer
+            example: 10
+        - name: offset
+          in: query
+          required: false
+          description: offset de servicos a serem retornados
+          schema:
+            type: integer
+            example: 0
+      responses:
+        "200":
+          description: Servico encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/servico"
+        "404":
+          description: Servico nao encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/servicoResponseError"

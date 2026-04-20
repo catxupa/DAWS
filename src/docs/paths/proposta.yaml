@@ -99,7 +99,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/updateproposta"
+                            $ref: "#/components/schemas/Updateproposta"
             responses:
                 "200":
                     description: Proposta atualizada com sucesso

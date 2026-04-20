@@ -1,5 +1,5 @@
 import { prestadorModel } from "../models/prestador.models.js"
-import type { NovoprestadorType } from "../util/types.js"
+import type { NovoprestadorType, ResponseType } from "../util/types.js"
 import type { Request, Response } from "express"
 
 export const prestadorControler = {
@@ -8,42 +8,48 @@ export const prestadorControler = {
     async createPrestador(req: Request, res: Response) {
         const novoPrestador: NovoprestadorType = req.body
         if (!novoPrestador) {
-            return res.status(400).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "dados invalidos",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
         const createPrestadorResponse = await prestadorModel.novoPrestador(novoPrestador)
+
         if (!createPrestadorResponse) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao criar prestador",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<NovoprestadorType> = {
             status: "success",
             message: "prestador criado com sucesso",
             data: createPrestadorResponse
-        })
+        }
+        return res.status(200).json(response)
     },
 
     // buscar todos os prestadores
     async getAllPrestadores(req: Request, res: Response) {
         const prestadores = await prestadorModel.getAllPrestadores()
         if (!prestadores) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao buscar prestadores",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<NovoprestadorType> = {
             status: "success",
             message: "prestadores buscados com sucesso",
             data: prestadores
-        })
+        }
+        return res.status(200).json(response)
     },
 
     // buscar prestador por id
@@ -51,17 +57,19 @@ export const prestadorControler = {
         const id = req.params.id
         const prestador = await prestadorModel.getPrestadorById(id as string)
         if (!prestador) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao buscar prestador",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<NovoprestadorType> = {
             status: "success",
             message: "prestador buscado com sucesso",
             data: prestador
-        })
+        }
+        return res.status(200).json(response)
     },
 
     // atualizar prestador
@@ -69,25 +77,28 @@ export const prestadorControler = {
         const id = req.params.id
         const prestadorAtualizado: NovoprestadorType = req.body
         if (!prestadorAtualizado) {
-            return res.status(400).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "dados invalidos",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
         const prestador = await prestadorModel.updatePrestador(id as string, prestadorAtualizado)
         if (!prestador) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao atualizar prestador",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<NovoprestadorType> = {
             status: "success",
             message: "prestador atualizado com sucesso",
-            data: prestador
-        })
+            data: prestadorAtualizado
+        }
+        return res.status(200).json(response)
     },
 
     // apagar prestador
@@ -95,17 +106,19 @@ export const prestadorControler = {
         const id = req.params.id
         const prestador = await prestadorModel.deletePrestador(id as string)
         if (!prestador) {
-            return res.status(500).json({
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "erro ao apagar prestador",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
+        const response: ResponseType<NovoprestadorType> = {
             status: "success",
             message: "prestador apagado com sucesso",
             data: prestador
-        })
+        }
+        return res.status(200).json(response)
     }
 
 }

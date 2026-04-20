@@ -5,6 +5,8 @@ import { ruter } from "./routs/prestador.routs.js";
 import { ruters } from "./routs/orcamento.routs.js";
 import { ruterss } from "./routs/proposta.routs.js";
 import { ruterrs } from "./routs/prestacao_servico.routs.js";
+import { rota } from "./routs/categoria.routs.js";
+import { rotaa } from "./routs/empresa.routs.js";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./docs/swagger.js";
 import dotenv from "dotenv";
@@ -32,6 +34,10 @@ app.use("/orcamento", ruters)
 app.use("/proposta", ruterss)
 
 app.use("/prestacao_servico", ruterrs)
+
+app.use("/categoria", rota)
+
+app.use("/empresa", rotaa)
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

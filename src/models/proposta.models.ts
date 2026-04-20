@@ -1,13 +1,15 @@
+import type { promises } from "node:dns"
 import db from "../lib/db.js"
 import type { NovapropostaType } from "../util/types.js"
+import type { RowDataPacket } from "mysql2"
 
 
 // fuuncoes para criar proposta
 export const propostaModel = {
-    async createProposta(novaProposta: NovapropostaType) {
+    async createProposta(novaProposta: NovapropostaType): Promise<NovapropostaType | null> {
 
         try {
-            const row = await db.execute(`INSERT INTO tabela_proposta Values (?,?,?,?,?,?,?,?)`,
+            const row = await db.execute<NovapropostaType & RowDataPacket[]>(`INSERT INTO tabela_proposta Values (?,?,?,?,?,?,?,?)`,
                 [
                     null,
                     novaProposta.id_prestacao,
@@ -19,7 +21,7 @@ export const propostaModel = {
                     new Date()
                 ])
             if (!row) return null
-            return row[0]
+            return row[0] as NovapropostaType
         } catch (error) {
             console.log({ "error": error })
             return null
@@ -27,9 +29,9 @@ export const propostaModel = {
     },
 
     // funcao atualizar proposta
-    async updateProposta(id: string, updatedProposta: NovapropostaType) {
+    async updateProposta(id: string, updatedProposta: NovapropostaType): Promise<NovapropostaType | null> {
         try {
-            const row = await db.execute(`UPDATE tabela_proposta SET id_prestacao = ?, preco_hora = ?, hora_estimadas = ?, estado = ?, enabled = ?, created_at = ?, update_at = ? WHERE id = ?`,
+            const row = await db.execute<NovapropostaType & RowDataPacket[]>(`UPDATE tabela_proposta SET id_prestacao = ?, preco_hora = ?, hora_estimadas = ?, estado = ?, enabled = ?, created_at = ?, update_at = ? WHERE id = ?`,
                 [
                     updatedProposta.id_prestacao,
                     updatedProposta.preco_hora,
@@ -41,7 +43,7 @@ export const propostaModel = {
                     id
                 ])
             if (!row) return null
-            return row
+            return row[0] as NovapropostaType
         } catch (error) {
             console.log({ "error": error })
             return null
@@ -49,11 +51,11 @@ export const propostaModel = {
     },
 
     // funcao apagar proposta
-    async deleteProposta(id: string) {
+    async deleteProposta(id: string): Promise<NovapropostaType | null> {
         try {
-            const row = await db.execute(`DELETE FROM tabela_proposta WHERE id = ?`, [id])
+            const row = await db.execute<NovapropostaType & RowDataPacket[]>(`DELETE FROM tabela_proposta WHERE id = ?`, [id])
             if (!row) return null
-            return row
+            return row[0] as NovapropostaType
         } catch (error) {
             console.log({ "error": error })
             return null
@@ -61,23 +63,30 @@ export const propostaModel = {
     },
 
     // funcao buscar proposta por id
-    async getPropostaById(id: string) {
+    async getPropostaById(id: string): Promise<NovapropostaType | null> {
         try {
-            const row = await db.execute(`SELECT * FROM tabela_proposta WHERE id = ?`, [id])
-            if (!row) return null
-            return row[0]
+            const query = `SELECT DISTINCT
+            pt.*,
+            u.id AS owner
+            FROM tabela_proposta pt 
+            INNER JOIN tabela_prestadores pr ON pt.id_prestador = pr.id
+            INNER JOIN tabela_utilizadores u ON pr.id_utilizador = u.id
+            WHERE pt.id = ?`
+            const values = [id]
+            const [rows] = await db.execute<NovapropostaType & RowDataPacket[]>(query, values)
+            return Array.isArray(rows) && rows.length > 0 ? rows[0] as NovapropostaType : null
         } catch (error) {
             console.log({ "error": error })
             return null
         }
-    },
+    }, 
 
     // funcao buscar todas as propostas
-    async getAllPropostas() {
+    async getAllPropostas(): Promise<NovapropostaType | null> {
         try {
-            const row = await db.execute(`SELECT * FROM tabela_proposta`)
+            const row = await db.execute<NovapropostaType & RowDataPacket[]>(`SELECT * FROM tabela_proposta`)
             if (!row) return null
-            return row[0]
+            return row[0] as NovapropostaType
         } catch (error) {
             console.log({ "error": error })
             return null
@@ -85,14 +94,15 @@ export const propostaModel = {
     },
 
     //funcao para aceitar proposta
-    async aceitarProposta(id: string) {
+    async aceitarProposta(id: string): Promise<NovapropostaType | null> {
         try {
-            const row = await db.execute(`UPDATE tabela_proposta SET estado = "ACEITE" WHERE id = ?`, [id])
+            const row = await db.execute<NovapropostaType & RowDataPacket[]>(`UPDATE tabela_proposta SET estado = "ACEITE" WHERE id = ?`, [id])
             if (!row) return null
-            return row[0]
+            return row[0] as NovapropostaType
         } catch (error) {
             console.log({ "error": error })
             return null
         }
-    }
+    },
+
 }

@@ -1,0 +1,143 @@
+
+
+#paths para empresa
+
+paths:
+  /empresa/get-all-empresa:
+    #paths para obter todas as empresas
+    get:
+      tags:
+        - empresa
+      summary: Obter todas as empresas
+      responses:
+        "200":
+          description: Lista de empresas obtida com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+        "400":
+          description: Erro ao obter empresas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmpresaResponseError"
+
+
+#paths para criar empresa
+  /empresa/create:
+    post:
+      tags:
+        - empresa
+      summary: Criar empresa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmpresaCreate"
+      responses:
+        "201":
+          description: Empresa criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+        "400":
+          description: Erro ao criar empresa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmpresaResponseError"
+
+
+
+#paths para obter empresa por id
+  /empresa/get-by-id/{id}:
+    get:
+      tags:
+        - empresa
+      summary: Obter empresa por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Empresa encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+        "404":
+          description: Empresa nao encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmpresaResponseError"
+
+
+
+#paths para atualizar empresa por id
+  /empresa/update/{id}:
+    put:
+      tags:
+        - empresa
+      summary: Atualizar empresa por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmpresaUpdate"
+      responses:
+        "200":
+          description: Empresa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+        "400":
+          description: Erro ao atualizar empresa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmpresaResponseError"
+
+
+#paths para apagar empresa por id
+  /empresa/delete/{id}:
+    delete:
+      tags:
+        - empresa
+      summary: Apagar empresa por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Empresa apagada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+        "404":
+          description: Empresa nao encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmpresaResponseError"

@@ -1,6 +1,6 @@
 
 import db from "./lib/db.js";
-import type { NovoservicoType, responseType, Servicotype, } from "./util/types.js";
+import type { NovoservicoType, ResponseType, Servicotype, } from "./util/types.js";
 
 export let catalogoServico: Servicotype[] = [
     {
@@ -13,7 +13,7 @@ export let catalogoServico: Servicotype[] = [
 ];
 
 // adicionar um serviço
-export function adicionarServico(NovoServico: Servicotype): responseType {
+export function adicionarServico(NovoServico: Servicotype) {
     // 1. Validação de Dados
     if (NovoServico.nome.trim() === "") {
         console.log("Erro: O nome do serviço não pode ser vazio.");

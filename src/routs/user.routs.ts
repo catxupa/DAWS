@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { userControlers } from "../controler/user.controlers.js"
-import authMiddelware from "../security/auth.middelware.js"
+import authMiddelware, { autorized } from "../security/auth.middelware.js"
+import { Role } from "../util/types.js"
 
 
 
@@ -16,30 +17,18 @@ const userRoute = {
 }
 
 const rOuter = Router()
-
-// rota para selecionar todos os utilizadores na base de dados
-rOuter.get(userRoute.getALL, authMiddelware, userControlers.getUser)
-
-// rota para inserir um novo utilizador
-rOuter.post(userRoute.create, userControlers.novoutilizador)
-
-// rota para selecionar um utilizador por id
-rOuter.get(userRoute.getById, userControlers.getUserById)
-
-// rota para atualizar um utilizador
-rOuter.put(userRoute.update, userControlers.updateduser)
-
-// rota para apagar um utilizador
-rOuter.delete(userRoute.delete, userControlers.deleteuser)
-
-// rota para login
+// rotas que não precisam de autenticação
 rOuter.post(userRoute.login, userControlers.Login)
+rOuter.post(userRoute.create, userControlers.novoutilizador) 
 
-// rota para atualizar password
-rOuter.put(userRoute.updatePassword, authMiddelware, userControlers.updatePassword)
-
-// rota para resetar password
-rOuter.put(userRoute.resetPassword, authMiddelware, userControlers.resetPassword)
+// rotas que precisam de autenticação
+rOuter.use(authMiddelware)
+rOuter.get(userRoute.getALL, autorized([Role.ADMIN]), userControlers.getUser)
+rOuter.get(userRoute.getById, autorized([Role.ADMIN, Role.PRESTADOR, Role.EMPRESA, Role.CLIENTE]), userControlers.getUserById)
+rOuter.put(userRoute.update, autorized([Role.ADMIN, Role.PRESTADOR, Role.EMPRESA, Role.CLIENTE]), userControlers.updateduser)
+rOuter.delete(userRoute.delete, autorized([Role.ADMIN]), userControlers.deleteuser)
+rOuter.put(userRoute.updatePassword, autorized([Role.ADMIN, Role.PRESTADOR, Role.EMPRESA, Role.CLIENTE]), userControlers.updatePassword)
+rOuter.put(userRoute.resetPassword, autorized([Role.ADMIN, Role.PRESTADOR, Role.EMPRESA, Role.CLIENTE]), userControlers.resetPassword)
 
 
 export { rOuter }

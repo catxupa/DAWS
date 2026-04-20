@@ -81,7 +81,40 @@ components:
       properties:
         id:
           type: string
+          example: "1" 
+
+
+    #schema para listar servicos detalhados
+    ServicoDetalhado:
+      type: object
+      properties:
+        id:
+          type: string
           example: "1"
+        nome:
+          type: string
+          example: Eletricista
+        descricao:
+          type: string
+          example: Reparação de curto-circuito
+        designacao_categoria: 
+          type: string
+          example: "1"
+        icone_categoria:
+          type: string
+          example: "1"
+        id_empresa:
+          type: string
+          example: "1"
+        disignacao_empresa:
+          type: string
+          example: Eletricista
+        icone_empresa:
+          type: string
+          example: "1"
+        enabled:
+          type: boolean
+          example: true
 
 
     #schema para resposta de sucesso
@@ -92,7 +125,8 @@ components:
                 type: string
                 example: "Servico criado com sucesso"
             data:
-                $ref: "#/components/schemas/Servico"
+                $ref: "#/components/schemas/servico"
+
 
     #schema para resposta de erro
     servicoResponseError:
@@ -102,5 +136,5 @@ components:
                 type: string
                 example: "Servico nao encontrado"
             data:
-                $ref: "#/components/schemas/ServicoResponseError"
+                $ref: "#/components/schemas/servicoResponseError"
 

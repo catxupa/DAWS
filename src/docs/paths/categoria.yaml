@@ -1,0 +1,176 @@
+
+
+#paths para categoria
+paths:
+  /categoria:
+    get:
+      tags:
+        - Categoria
+      summary: "Obter todas as categorias"
+      description: "Obter todas as categorias"
+      responses:
+        "200":
+          description: "Categorias obtidas com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        "404":
+          description: "Categorias nao encontradas"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+        "500":
+          description: "Erro ao obter categorias"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+
+     #path para obter categoria por id
+  /categoria/get-by-id/{id}:
+    get:
+      tags:
+        - Categoria
+      summary: "Obter categoria por id"
+      description: "Obter categoria por id"
+      parameters:
+        - name: id
+          in: path
+          required: true
+      schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: "Categoria obtida com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        "404":
+          description: "Categoria nao encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+        "500":
+          description: "Erro ao obter categoria"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+
+
+    #path para criar categoria
+  /categoria/create:
+    post:
+      tags:
+        - Categoria
+      summary: "Criar categoria"
+      description: "Criar categoria"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoriaCreate"
+      responses:
+        "201":
+          description: "Categoria criada com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        "400":
+          description: "Erro ao criar categoria"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+        "500":
+          description: "Erro ao criar categoria"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+
+
+    #path para atualizar categoria
+  /categoria/update/{id}:
+    put:
+      tags:
+        - Categoria
+      summary: "Atualizar categoria"
+      description: "Atualizar categoria"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoriaUpdate"
+      responses:
+        "200":
+          description: "Categoria atualizada com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        "404":
+          description: "Categoria nao encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+        "500":
+          description: "Erro ao atualizar categoria"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+
+
+    #path para apagar categoria
+  /categoria/delete/{id}:
+    delete:
+      tags:
+        - Categoria
+      summary: "Apagar categoria"
+      description: "Apagar categoria"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: "Categoria apagada com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        "404":
+          description: "Categoria nao encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+        "500":
+          description: "Erro ao apagar categoria"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaResponseError"
+
+
+                

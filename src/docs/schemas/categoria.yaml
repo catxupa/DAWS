@@ -1,0 +1,90 @@
+
+
+    #id: string,
+    #designacao: string,
+    #icone: string,
+    #created_at: string,
+    #updated_at: string
+
+
+components:
+  # para buscar categoria
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+        designacao:
+          type: string
+          example: "Categoria 1"
+        icone:
+          type: string
+          example: "icone.png"
+        created_at:
+          type: string
+          example: "2022-01-01"
+        updated_at:
+          type: string
+          example: "2022-01-01"
+
+
+    # schema para criar categoria
+    CategoriaCreate:
+      type: object
+      properties:
+        designacao:
+          type: string
+          example: "Categoria 1"
+        icone:
+          type: string
+          example: "icone.png"
+
+
+    # schema para atualizar categoria
+    CategoriaUpdate:
+      type: object
+      properties:
+        designacao:
+          type: string
+          example: "Categoria 1"
+        icone:
+          type: string
+          example: "icone.png"
+
+
+    #schema para fazer delete
+    CategoriaDelete:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+
+
+    # schema para resposta de sucesso
+    CategoriaSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Categoria criada com sucesso"
+        data:
+          $ref: "#/components/schemas/Categoria"
+
+    # schema para resposta de erro
+    CategoriaError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Erro ao criar categoria"
+        data:
+          $ref: "#/components/schemas/CategoriaResponseError"

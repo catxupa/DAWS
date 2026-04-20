@@ -1,5 +1,7 @@
 import { Router } from "express"
 import { prestadorControler } from "../controler/prestador.controler.js"
+import authMiddelware, { autorized } from "../security/auth.middelware.js"
+import { Role } from "../util/types.js"
 
 
 const prestadorRoute = {
@@ -12,11 +14,12 @@ const prestadorRoute = {
 
 const ruter = Router()
 
-// rota para inserir um novo prestador na base de dados !*
-ruter.get(prestadorRoute.getALL, prestadorControler.getAllPrestadores)
-ruter.get(prestadorRoute.getById, prestadorControler.getPrestadorById)
-ruter.post(prestadorRoute.create, prestadorControler.createPrestador)
-ruter.put(prestadorRoute.update, prestadorControler.updatePrestador)
-ruter.delete(prestadorRoute.delete, prestadorControler.deletePrestador)
+// rotas que precisam de autenticação  
+ruter.use(authMiddelware)
+ruter.get(prestadorRoute.getALL, autorized([Role.ADMIN, Role.PRESTADOR, Role.EMPRESA, Role.CLIENTE]), prestadorControler.getAllPrestadores)
+ruter.get(prestadorRoute.getById, autorized([Role.ADMIN, Role.PRESTADOR, Role.EMPRESA, Role.CLIENTE]), prestadorControler.getPrestadorById)
+ruter.post(prestadorRoute.create, autorized([Role.ADMIN]), prestadorControler.createPrestador)
+ruter.put(prestadorRoute.update, autorized([Role.ADMIN, Role.PRESTADOR, Role.EMPRESA]), prestadorControler.updatePrestador)
+ruter.delete(prestadorRoute.delete, autorized([Role.ADMIN]), prestadorControler.deletePrestador)
 
 export { ruter }

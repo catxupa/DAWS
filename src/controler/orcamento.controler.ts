@@ -1,6 +1,6 @@
 import { orcamentoModel } from "../models/orcamento.models.js"
 import type { Request, Response } from "express"
-import type { NovoOrcamentoType } from "../util/types.js"
+import type { NovoOrcamentoType, ResponseType, NovaprestacaoType, NovapropostaType, NovoprestadorType } from "../util/types.js"
 import db from "../lib/db.js"
 import type { RowDataPacket } from "mysql2"
 
@@ -14,127 +14,145 @@ export const orcamentoControler = {
         const updatedOrcamento: NovoOrcamentoType = req.body
 
         if (!updatedOrcamento) {
-            return res.status(400).json({
-                success: false,
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Dados invalidos",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
-        const orcamento = await orcamentoModel.updateOrcamento(id as string, updatedOrcamento)
+        const updatedOrcamentoResponse: NovoOrcamentoType | null = await orcamentoModel.updateOrcamento(id as string, updatedOrcamento)
 
-        if (!orcamento) {
-            return res.status(500).json({
-                success: false,
+        if (!updatedOrcamentoResponse) {
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro ao atualizar orcamento",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
-            success: true,
+        const response: ResponseType<NovoOrcamentoType> = {
+            status: "success",
             message: "Orcamento atualizado com sucesso",
-            data: updatedOrcamento
-        })
+            data: updatedOrcamentoResponse
+        }
+        return res.status(200).json(response)
     },
 
     //controlador para criar orcamento
     async createOrcamento(req: Request, res: Response) {
         const orcamento: NovoOrcamentoType = req.body
         if (!orcamento) {
-            return res.status(400).json({
-                success: false,
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Dados invalidos",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
-        const createOrcamento = await orcamentoModel.createOrcamento(orcamento)
-        if (!createOrcamento) {
-            return res.status(500).json({
-                success: true,
-                message: "tabela nao encontrada",
-                data: createOrcamento
-            })
+
+        const createdOrcamentoResponse: NovoOrcamentoType | null = await orcamentoModel.createOrcamento(orcamento)
+
+        if (!createdOrcamentoResponse) {
+            const response: ResponseType<null> = {
+                status: "error",
+                message: "Erro ao criar orcamento",
+                data: null
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
-            success: true,
+
+        const response: ResponseType<NovoOrcamentoType> = {
+            status: "success",
             message: "Orcamento criado com sucesso",
-            data: createOrcamento
-        })
+            data: createdOrcamentoResponse
+        }
+        return res.status(200).json(response)
     },
 
     //controlador para apagar orcamento
     async deleteOrcamento(req: Request, res: Response) {
         const { id } = req.params
-        const orcamento = await orcamentoModel.deleteOrcamento(id as string)
-        if (!orcamento) {
-            return res.status(500).json({
-                success: false,
+
+        const deleteOrcamentoResponse = await orcamentoModel.deleteOrcamento(id as string)
+        if (!deleteOrcamentoResponse) {
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro ao apagar orcamento",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
-            success: true,
+        const response: ResponseType<NovoOrcamentoType> = {
+            status: "success",
             message: "Orcamento apagado com sucesso",
-            data: orcamento
-        })
+            data: deleteOrcamentoResponse
+        }
+        return res.status(200).json(response)
     },
 
     //controlador para obter orcamento por id
     async getOrcamento(req: Request, res: Response) {
         const { id } = req.params
-        const orcamento = await orcamentoModel.getOrcamento(id as string)
-        if (!orcamento) {
-            return res.status(404).json({
-                success: true,
+        const orcamentoResponse = await orcamentoModel.getOrcamento(id as string)
+        if (!orcamentoResponse) {
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Orcamento nao encontrado",
                 data: null
-            })
+            }
+            return res.status(404).json(response)
         }
-        return res.status(200).json({
-            success: true,
+        const response: ResponseType<NovoOrcamentoType> = {
+            status: "success",
             message: "Orcamento obtido com sucesso",
-            data: orcamento
-        })
+            data: orcamentoResponse
+        }
+        return res.status(200).json(response)
     },
 
     //controlador para obter todos os orcamentos
     async getAllOrcamentos(req: Request, res: Response) {
-        const orcamentos = await orcamentoModel.getAllOrcamentos()
-        if (!orcamentos) {
-            return res.status(500).json({
-                success: false,
+        const { id_utilizador } = req.params
+        const orcamentosResponse = await orcamentoModel.getAllOrcamentos(id_utilizador as string)
+        if (!orcamentosResponse) {
+            const response: ResponseType<NovoOrcamentoType> = {
+                status: "error",
                 message: "Erro ao obter orcamentos",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
-            success: true,
+
+        const response: ResponseType<NovoOrcamentoType> = {
+            status: "success",
             message: "Orcamentos obtidos com sucesso",
-            data: orcamentos
-        })
+            data: orcamentosResponse
+        }
+        return res.status(200).json(response)
     },
 
     // Controlador para calcular orçamento final
     async calcularOrcamento(req: Request, res: Response) {
         try {
-            const idOrcamento = String(req.params.id);
+            const { id } = req.params
 
             // Buscar a prestação de serviço associada a este orçamento
             const [rows]: any = await db.query<RowDataPacket[]>(
                 "SELECT * FROM tabela_prestacao_servicos WHERE id_orcamento = ?",
-                [idOrcamento]
+                [id]
             );
 
             if (Array.isArray(rows) && rows.length === 0) {
-                return res.status(404).json({
-                    success: false,
-                    message: "Orçamento não encontrado ou sem prestação de serviço associada",
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "Orçamento não encontrado ou sem prestação de serviço associado",
                     data: null
-                });
+                }
+                return res.status(404).json(response)
             }
 
             const tabela_prestacao_servicos = rows[0] as RowDataPacket;
-            console.log("tabela_prestacao_servicos", tabela_prestacao_servicos)
             const prestacao_servicos = tabela_prestacao_servicos.id;
             const id_prestador = tabela_prestacao_servicos.id_prestador;
 
@@ -145,14 +163,16 @@ export const orcamentoControler = {
             );
 
             //Verificar proposta aceite
-            const propostaAceite = propostas.find((proposta: any) => proposta.estado === "ACEITE" || proposta.estado === "Aceite" || proposta.estado === "aceite");
+            const propostaAceite = propostas.find((proposta: any) =>
+                proposta.estado === "aceite");
 
             if (!propostaAceite) {
-                return res.status(400).json({
-                    success: false,
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "Nenhuma proposta aceite encontrada para esta prestação de serviço",
                     data: null
-                });
+                }
+                return res.status(404).json(response)
             }
 
             const preco_hora = propostaAceite.preco_hora;
@@ -169,17 +189,25 @@ export const orcamentoControler = {
             );
 
             if (!Array.isArray(prestadores) || prestadores.length === 0) {
-                return res.status(404).json({
-                    success: false,
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "Prestador não encontrado",
                     data: null
-                });
+                }
+                return res.status(404).json(response)
             }
 
             const prestador = prestadores[0] as RowDataPacket;
-            const { taxa_urgencia, minimo_desconto, percentagem_desconto } = prestador;
+            const { taxa_urgencia,
+                minimo_desconto,
+                percentagem_desconto } = prestador;
 
-            console.log(taxa_urgencia, minimo_desconto, percentagem_desconto, preco_hora, hora_estimada);
+            console.log(taxa_urgencia,
+                minimo_desconto,
+                percentagem_desconto,
+                preco_hora,
+                hora_estimada);
+
             // Calcular total
             let total: number = parseInt(preco_hora) * parseInt(hora_estimada);
             // Se tiver taxa de urgência associada (garantindo conversão se vier 20 em vez de 0.20)
@@ -194,31 +222,39 @@ export const orcamentoControler = {
                 total -= total * multiplicadorDesconto;
             }
             if (isNaN(total)) {
-                return res.status(400).json({
-                    success: false,
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "Erro no calculo: valores invalidos",
                     data: null
-                });
+                }
+                return res.status(400).json(response)
             }
 
             //Atualizar orçamento
-            await db.execute(
-                `UPDATE tabela_orcamento SET total = ?, updated_at = ? WHERE id = ?`,
-                [total, new Date(), idOrcamento]
+            await db.query(
+                `UPDATE tabela_orcamento SET 
+                total = ?, 
+                updated_at = ? 
+                WHERE id = ?`,
+                [total,
+                    new Date(),
+                    id
+                ]
             );
-            console.log("total2113243254", total)
-            return res.status(200).json({
-                success: true,
+            const response: ResponseType<{ id: string; total: number }> = {
+                status: "success",
                 message: "Orçamento calculado com sucesso",
-                data: { idOrcamento, total }
-            })
+                data: { id: id as string, total }
+            }
+            return res.status(200).json(response)
         } catch (error) {
             console.error(error);
-            return res.status(500).json({
-                success: false,
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro ao calcular orçamento",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
     },
 
@@ -236,11 +272,12 @@ export const orcamentoControler = {
 
             //verificar se existe prestacao de servico
             if (!Array.isArray(prestacoes) || prestacoes.length === 0) {
-                return res.status(404).json({
-                    success: false,
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "Prestação de serviço não encontrada para este orçamento",
                     data: null
-                });
+                }
+                return res.status(404).json(response)
             }
 
             const prestacao = prestacoes[0] as RowDataPacket;
@@ -257,15 +294,15 @@ export const orcamentoControler = {
             );
 
             const estado_p = propostaAceite?.estado
-            console.log("estado_p", estado_p)
 
 
             if (!Array.isArray(propostas) || propostas.length === 0) {
-                return res.status(404).json({
-                    success: false,
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "Proposta não encontrada para esta prestação de serviço",
                     data: null
-                });
+                }
+                return res.status(404).json(response)
             }
 
             let prestador = null;
@@ -286,23 +323,31 @@ export const orcamentoControler = {
             const percentagemDesconto = parseFloat(prestador?.percentagem_desconto) || 0;
             const precoHora = parseFloat(prestador?.preco_hora) || 0;
 
-            return res.status(200).json({
-                success: true,
+            const response: ResponseType<{
+                prestacao_servico: NovaprestacaoType;
+                propostas: NovapropostaType[];
+                prestador: NovoprestadorType | null;
+            }> = {
+                status: "success",
                 message: "Detalhes do orçamento encontrados com sucesso",
                 data: {
-                    prestacao_servico: prestacao,
-                    propostas: propostas,
-                    prestador: prestador
-                }
-            });
+                    prestacao_servico: prestacao as NovaprestacaoType,
+                    propostas: propostas as NovapropostaType[],
+                    prestador: (prestador as NovoprestadorType) || null
 
+                }
+
+
+            };
+            return res.status(200).json(response)
         } catch (error) {
             console.error(error);
-            return res.status(500).json({
-                success: false,
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro ao obter detalhes do orçamento",
                 data: null
-            });
+            };
+            return res.status(500).json(response)
         }
     }
 }

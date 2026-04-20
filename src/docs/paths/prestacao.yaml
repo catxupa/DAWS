@@ -15,7 +15,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestacao"
+                $ref: "#/components/schemas/prestacao_servico"
         "500":
           description: Erro ao buscar prestacoes
           content:
@@ -24,7 +24,7 @@ paths:
                 $ref: "#/components/schemas/prestacaoResponseError"
 
 
-#--criar prestacao de servico
+  #--criar prestacao de servico
   /prestacao_servico/create:
     post:
       tags:
@@ -42,7 +42,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestacao"
+                $ref: "#/components/schemas/prestacao_servico"
         "400":
           description: Dados invalidos
           content:
@@ -57,7 +57,7 @@ paths:
                 $ref: "#/components/schemas/prestacaoResponseError"
 
 
-#--buscar prestacao por id
+  #--buscar prestacao por id
   /prestacao_servico/get-by-id/{id}:
     get:
       tags:
@@ -76,7 +76,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestacao"
+                $ref: "#/components/schemas/prestacao_servico"
         "404":
           description: Prestacao nao encontrada
           content:
@@ -91,7 +91,7 @@ paths:
                 $ref: "#/components/schemas/prestacaoResponseError"
 
 
-#--atualizar prestacao por id
+  #--atualizar prestacao por id
   /prestacao_servico/update/{id}:
     put:
       tags:
@@ -116,7 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestacao"
+                $ref: "#/components/schemas/prestacao_servico"
         "400":
           description: Dados invalidos
           content:
@@ -131,7 +131,7 @@ paths:
                 $ref: "#/components/schemas/prestacaoResponseError"
 
 
-#--deletar prestacao por id
+  #--deletar prestacao por id
   /prestacao_servico/delete/{id}:
     delete:
       tags:
@@ -150,7 +150,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/prestacao"
+                $ref: "#/components/schemas/prestacao_servico"
         "404":
           description: Prestacao nao encontrada
           content:
@@ -159,6 +159,68 @@ paths:
                 $ref: "#/components/schemas/prestacaoResponseError"
         "500":
           description: Erro ao deletar prestacao
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/prestacaoResponseError"
+
+
+  #--buscar prestacao detalhada
+  /prestacao_servico/get-all-detalhada:
+    get:
+      tags:
+        - Prestacao *
+      summary: Buscar prestacao detalhada
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+            example: 10
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+            example: 0
+      responses:
+        "200":
+          description: Prestacao detalhada encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/prestacao_servico"
+        "500":
+          description: Erro ao buscar prestacao detalhada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/prestacaoResponseError"
+
+
+  #--buscar prestacao detalhada por categoria
+  /prestacao_servico/get-by-categoria:   
+    get:
+      tags:
+        - Prestacao *
+      summary: Buscar prestacao detalhada por categoria
+      parameters:
+        - name: categoria
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "Eletricista"
+      responses:
+        "200":
+          description: Prestacao detalhada encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/prestacao"
+        "500":
+          description: Erro ao buscar prestacao detalhada
           content:
             application/json:
               schema:

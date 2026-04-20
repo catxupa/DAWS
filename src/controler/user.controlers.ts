@@ -2,12 +2,10 @@ import { createConnection } from "node:net";
 import { userModel } from "../models/user.models.js";
 import { novoUtilizador, updateuser, deleteuser } from "../user.js";
 import { comparepassword, hashpassword } from "../util/passwor.js";
-import type { utilizadorType } from "../util/types.js";
+import type { ResponseType, utilizadorType } from "../util/types.js";
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import connection from "../lib/db.js";
-import type { RowDataPacket } from "mysql2";
+
 
 
 //controler para selecionar todos os users no bd !*  
@@ -17,18 +15,21 @@ export const userControlers = {
         const users = await userModel.getAll()
 
         if (!users) {
-            return res.status(500).json({
+
+            const response: ResponseType<null> = {
                 status: "error",
                 message: "Erro ao buscar utilizador",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
 
-        return res.status(200).json({
+        const response: ResponseType<utilizadorType[]> = {
             status: "success",
             message: "Utilizador buscados com sucesso",
-            data: users
-        })
+            data: null
+        }
+        return res.status(200).json(response)
     },
 
     //controler para adicionar novo user no bd !*  
@@ -39,18 +40,20 @@ export const userControlers = {
             const novoUtilizadorResponse = await novoUtilizador(utilizador)
             res.json(novoUtilizadorResponse)
 
-            return res.status(200).json({
-                status: "sucess",
+            const response: ResponseType<utilizadorType> = {
+                status: "success",
                 message: "Utilizador criado com sucesso",
-                data: novoUtilizadorResponse
-            })
+                data: null
+            }
+            return res.status(200).json(response)
         } catch (error) {
             console.log(error)
-            return res.status(500).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro interno no servidor",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
     },
 
@@ -60,36 +63,40 @@ export const userControlers = {
         const updatedUser = req.body as utilizadorType
 
         if (id === null) {
-            return res.status(400).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "id obrigatorio",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
- 
+
         const updatedUserResponse = await updateuser(id as string, updatedUser)
 
         if (updatedUserResponse === null) {
-            return res.status(500).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro ao atualisar utilizador",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
 
         if (updatedUserResponse === null) {
-            return res.status(403).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Utilizador nao autorizado",
                 data: null
-            })
+            }
+            return res.status(403).json(response)
         }
 
-        return res.status(200).json({
-            status: "sucess",
+        const response: ResponseType<utilizadorType> = {
+            status: "success",
             message: "Utilizador atualizado com sucesso",
-            data: updatedUserResponse
-        })
+            data: null
+        }
+        return res.status(200).json(response)
     },
 
     // controler para selecionar user por id
@@ -99,18 +106,20 @@ export const userControlers = {
         const user = await userModel.getUserById(id as string)
 
         if (!user) {
-            return res.status(404).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Utilizador nao encontrado",
                 data: null
-            })
+            }
+            return res.status(404).json(response)
         }
 
-        return res.status(200).json({
-            status: "sucess",
+        const response: ResponseType<utilizadorType> = {
+            status: "success",
             message: "Utilizador encontrado com sucesso",
             data: user
-        })
+        }
+        return res.status(200).json(response)
     },
 
     //controler para apagar user !*
@@ -118,27 +127,30 @@ export const userControlers = {
         const { id } = req.params
 
         if (!id) {
-            return res.status(400).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "id obrigatorio",
                 data: null
-            })
+            }
+            return res.status(400).json(response)
         }
 
         const deleteUserResponse = await deleteuser(id as string)
 
         if (!deleteUserResponse) {
-            return res.status(500).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro ao apagar utilizador",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
-        return res.status(200).json({
-            status: "sucess",
+        const response: ResponseType<utilizadorType> = {
+            status: "success",
             message: "Utilizador apagado com sucesso",
-            data: deleteUserResponse
-        })
+            data: null
+        }
+        return res.status(200).json(response)
     },
 
     // controler para login
@@ -147,53 +159,59 @@ export const userControlers = {
             const { email, password } = req.body
 
             if (!email || !password) {
-                return res.status(400).json({
-                    status: "erro",
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "dados de servicos invalidos",
                     data: null
-                })
+                }
+                return res.status(400).json(response)
             }
 
             const userData = await userModel.getUserByEmail(email as string)
 
             if (!userData) {
-                return res.status(404).json({
-                    status: "erro",
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "nao existe usuario com este email",
                     data: null
-                })
+                }
+                return res.status(404).json(response)
             }
 
             const isPasswordValid = await comparepassword(password, userData.password);
 
             if (!isPasswordValid) {
-                return res.status(401).json({
-                    status: "erro",
+                const response: ResponseType<null> = {
+                    status: "error",
                     message: "credenciais invalidas",
                     data: null
-                })
+                }
+                return res.status(401).json(response)
             }
 
             const payload = {
                 id: userData.id,
                 email: userData.email,
-                nome: userData.nome
+                nome: userData.nome,
+                role: userData.role
             }
 
             const token = jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: "1h" })
-            res.status(200).json({
-                status: "sucess",
+            const response: ResponseType<string> = {
+                status: "success",
                 message: "Login realizado com sucesso",
                 data: token
-            })
+            }
+            return res.status(200).json(response)
 
         } catch (error) {
             console.log(error)
-            return res.status(500).json({
-                status: "erro",
+            const response: ResponseType<null> = {
+                status: "error",
                 message: "Erro interno no servidor",
                 data: null
-            })
+            }
+            return res.status(500).json(response)
         }
     },
 
@@ -206,43 +224,61 @@ export const userControlers = {
             const { oldPassword, newPassword } = req.body;
 
             if (!oldPassword || !newPassword) {
-                return res.status(400).json({
-                    message: "dados de servicos invalidos"
-                });
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "dados de servicos invalidos",
+                    data: null
+                }
+                return res.status(400).json(response)
             }
             //verificar se o user existe
             const user = await userModel.getUserById(userId as any);
 
             if (!user) {
-                return res.status(404).json({
-                    message: "Utilizador nao encontrado"
-                });
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "Utilizador nao encontrado",
+                    data: null
+                }
+                return res.status(404).json(response)
             }
             //verificar se a senha antiga esta correta
             const isMatch = await comparepassword(oldPassword, user.password as string);
 
             if (!isMatch) {
-                return res.status(401).json({
-                    message: "A senha antiga está incorreta"
-                });
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "A senha antiga está incorreta",
+                    data: null
+                }
+                return res.status(401).json(response)
             }
             //atualizar a senha
             const updateResponse = await userModel.updatePassword(userId as string, newPassword);
 
             if (!updateResponse) {
-                return res.status(400).json({
-                    message: "Erro ao atualizar a senha"
-                });
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "Erro ao atualizar a senha",
+                    data: null
+                }
+                return res.status(400).json(response)
             }
             //retornar a resposta
-            return res.status(200).json({
-                message: "Senha atualizada com sucesso"
-            });
+            const response: ResponseType<utilizadorType> = {
+                status: "success",
+                message: "Senha atualizada com sucesso",
+                data: null
+            }
+            return res.status(200).json(response)
         } catch (error) {
             console.error(error);
-            return res.status(500).json({
-                message: "Erro no servidor"
-            });
+            const response: ResponseType<null> = {
+                status: "error",
+                message: "Erro no servidor",
+                data: null
+            }
+            return res.status(500).json(response)
         }
     },
 
@@ -253,34 +289,49 @@ export const userControlers = {
             const { newPassword } = req.body;
 
             if (!newPassword) {
-                return res.status(400).json({
-                    message: "nova password invalida"
-                });
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "nova password invalida",
+                    data: null
+                }
+                return res.status(400).json(response)
             }
             const user = await userModel.getUserById(userId as any);
 
             if (!user) {
-                return res.status(404).json({
-                    message: "Utilizador nao encontrado"
-                });
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "Utilizador nao encontrado",
+                    data: null
+                }
+                return res.status(404).json(response)
             }
             //resetar a senha
             const updateResponse = await userModel.resetPassword(userId as string, newPassword);
 
             if (!updateResponse) {
-                return res.status(400).json({
-                    message: "Erro ao resetar a password"
-                });
+                const response: ResponseType<null> = {
+                    status: "error",
+                    message: "Erro ao resetar a password",
+                    data: null
+                }
+                return res.status(400).json(response)
             }
             //retornar a resposta
-            return res.status(200).json({
-                message: "password resetada com sucesso"
-            });
+            const response: ResponseType<utilizadorType> = {
+                status: "success",
+                message: "Senha resetada com sucesso",
+                data: null
+            }
+            return res.status(200).json(response)
         } catch (error) {
             console.error(error);
-            return res.status(500).json({
-                message: "Erro no servidor"
-            });
+            const response: ResponseType<null> = {
+                status: "error",
+                message: "Erro no servidor",
+                data: null
+            }
+            return res.status(500).json(response)
         }
     },
 

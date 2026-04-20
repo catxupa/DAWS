@@ -1,0 +1,143 @@
+
+  #id: string,
+  #designacao: string,
+  #descricao: string,
+  #localizacao: string,
+  #nif: number,
+  #icone: string,
+  #id_utilizador: string,
+  #enabled: boolean,
+  #created_at: string,
+  #updated_at: string
+
+
+  components:
+  # para buscar empresa
+    schemas:
+      Empresa:
+        type: object
+        properties:
+          id:
+            type: string
+            example: "1"
+          designacao:
+            type: string
+            example: "Empresa 1"
+          descricao:
+            type: string
+            example: "Descrição da empresa 1"
+          localizacao:
+            type: string
+            example: "Localização da empresa 1"
+          nif:
+            type: number
+            example: 123456789
+          icone:
+            type: string
+            example: "icone.png"
+          id_utilizador:
+            type: string
+            example: "1"
+          enabled:
+            type: boolean
+            example: true
+          created_at:
+            type: string
+            example: "2022-01-01"
+          updated_at:
+            type: string
+            example: "2022-01-01"
+
+
+        # schema para criar empresa
+      EmpresaCreate:
+        type: object
+        properties:
+          designacao:
+            type: string
+            example: "Empresa 1"
+          descricao:
+            type: string
+            example: "Descrição da empresa 1"
+          localizacao:
+            type: string
+            example: "Localização da empresa 1"
+          nif:
+            type: number
+            example: 123456789
+          icone:
+            type: string
+            example: "icone.png"
+          id_utilizador:
+            type: string
+            example: "1"
+          enabled:
+            type: boolean
+            example: true
+
+
+      # schema para atualizar empresa
+      EmpresaUpdate:
+        type: object
+        properties:
+          designacao:
+            type: string
+            example: "Empresa 1"
+          descricao:
+            type: string
+            example: "Descrição da empresa 1"
+          localizacao:
+            type: string
+            example: "Localização da empresa 1"
+          nif:
+            type: number
+            example: 123456789
+          icone:
+            type: string
+            example: "icone.png"
+          id_utilizador:
+            type: string
+            example: "1"
+          enabled:
+            type: boolean
+            example: true
+
+
+      #schema para fazer delete
+      EmpresaDelete:
+        type: object
+        properties:
+          id:
+            type: string
+            example: "1"
+
+
+
+
+      # schema para resposta de sucesso
+      EmpresaSuccess:
+        type: object
+        properties:
+          status:
+            type: string
+            example: "success"
+          message:
+            type: string
+            example: "Empresa criada com sucesso"
+          data:
+            $ref: "#/components/schemas/Empresa"
+
+      # schema para resposta de erro
+      EmpresaError:
+        type: object
+        properties:
+          status:
+            type: string
+            example: "error"
+          message:
+            type: string
+            example: "Erro ao criar empresa"
+          data:
+            $ref: "#/components/schemas/EmpresaResponseError"
+
+
