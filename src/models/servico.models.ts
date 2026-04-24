@@ -8,9 +8,9 @@ import type { RowDataPacket } from "mysql2"
 
 export const servicoModel = {
     //funcao para criar um novo servico
-    async create(novoServico: NovoservicoType): Promise<NovoservicoType | null> {
+    async create(novoServico: NovoservicoType) {
         try {
-            const [rows] = await db.execute<NovoservicoType & RowDataPacket[]>(`INSERT INTO tabela_servicos Values (?,?,?,?,?,?,?)`,
+            const [rows] = await db.execute<NovoservicoType & RowDataPacket[]>(`SELECT * FROM tabela_servicos ORDER BY id DESC LIMIT 1`,
                 [
                     null,
                     novoServico.nome,

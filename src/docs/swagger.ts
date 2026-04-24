@@ -32,7 +32,7 @@ const options: swaggerJsdoc.Options = {
             },
         ],
 
-         
+
     },
     //rotas 
     apis: [

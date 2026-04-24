@@ -16,9 +16,15 @@ export enum tipoPrestacao {
     PRODUTO = "produto"
 }
 
-export enum tipoprestador {
-    PRESTADOR = "prestador",
-    EMPRESA = "empresa"
+export enum propostaEstado {
+    PENDENTE = "pendente",
+    ACEITE = "aceite",
+    RECUSADO = "recusado"
+}
+
+export enum prestadorEstado {
+    DISPONIVEL = "disponivel",
+    INDISPONIVEL = "indisponivel"
 }
 
 
@@ -82,7 +88,7 @@ export interface NovoprestadorType {
     nif: number,
     percentagem_desconto: number,
     preco_hora: number,
-    disponivel: boolean,
+    disponivel: prestadorEstado,
     enable: boolean,
     created_at: string,
     update_at: string
@@ -102,7 +108,7 @@ export interface NovapropostaType {
     id_prestacao: number,
     preco_hora: number,
     hora_estimada: number,
-    estado: "aceite, pendente, recusado",
+    estado: propostaEstado,
     enabled: boolean,
     created_at: string,
     update_at: string

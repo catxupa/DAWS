@@ -66,11 +66,17 @@ export function isOwner(model: any, field: string) {
 
         const entity = await model.get(id as string)
 
-        if (!entity) return res.status(404).json({ message: "entidade nao encontrada" })
+        if (!entity) return res.status(404).json({
+            message: "entidade nao encontrada"
+        })
 
-        if (!entity) return res.status(401).json({ message: "utilizador  nao encontrada" })
+        if (!entity) return res.status(401).json({
+            message: "utilizador  nao encontrada"
+        })
 
-        if (entity[field] !== userid) return res.status(403).json({ message: "permicao insuficiente" })
+        if (entity[field] !== userid) return res.status(403).json({
+            message: "permicao insuficiente"
+        })
 
         next()
 

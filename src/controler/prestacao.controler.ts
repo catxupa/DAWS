@@ -73,7 +73,7 @@ export const prestacaoControler = {
             }
             return res.status(400).json(response)
         }
-        const prestacaoServicoResponse = await prestacaoServicoModel.deletePrestacaoServico(prestacaoServico)
+        const prestacaoServicoResponse = await prestacaoServicoModel.deletePrestacaoServico(prestacaoServico.id as string)
 
         if (!prestacaoServicoResponse) {
             const response: ResponseType<null> = {

@@ -81,6 +81,7 @@ export const userModel = {
                 await hashpassword(utilizador.password),
                 utilizador.enabled,
                 new Date(),
+                new Date(),
                 id
             ]
 

@@ -72,11 +72,10 @@ export const prestacaoServicoModel = {
     },
 
     //funcao para apagar prestacao de servico
-    async deletePrestacaoServico(prestacaoServico: NovaprestacaoType): Promise<NovaprestacaoType | null> {
+    async deletePrestacaoServico(id: string): Promise<NovaprestacaoType | null> {
         try {
-
             const query = "DELETE FROM tabela_prestacao_servicos WHERE id=?"
-            const values = [prestacaoServico.id]
+            const values = [id]
             const [rows] = await db.execute<NovaprestacaoType & RowDataPacket[]>(query, values)
             return rows as NovaprestacaoType
         } catch (error) {

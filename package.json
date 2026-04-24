@@ -13,19 +13,26 @@
     "docs": "swagger-jsdoc -o ./src/docs/swagger.json ./src/docs/schemas/ts"
   },
   "dependencies": {
+    "@apollo/server": "^5.5.0",
+    "@as-integrations/express5": "^1.1.2",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
     "cross-env": "^10.1.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "graphql": "^16.13.2",
+    "graphql-tag": "^2.12.6",
     "jest": "^30.3.0",
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.19.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "tag": "^0.4.17",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

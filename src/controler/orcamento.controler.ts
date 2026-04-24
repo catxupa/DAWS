@@ -113,8 +113,7 @@ export const orcamentoControler = {
 
     //controlador para obter todos os orcamentos
     async getAllOrcamentos(req: Request, res: Response) {
-        const { id_utilizador } = req.params
-        const orcamentosResponse = await orcamentoModel.getAllOrcamentos(id_utilizador as string)
+        const orcamentosResponse = await orcamentoModel.getAllOrcamentos()
         if (!orcamentosResponse) {
             const response: ResponseType<NovoOrcamentoType> = {
                 status: "error",

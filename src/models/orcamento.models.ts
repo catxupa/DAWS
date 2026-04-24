@@ -75,7 +75,7 @@ export const orcamentoModel = {
     },
 
     // funcao para obter todos os orcamentos
-    async getAllOrcamentos(id_utilizador: string): Promise<NovoOrcamentoType | null> {
+    async getAllOrcamentos(): Promise<NovoOrcamentoType | null> {
         try {
             const query = "SELECT * FROM tabela_orcamento"
             const [rows] = await db.execute<NovoOrcamentoType & RowDataPacket[]>(query)
